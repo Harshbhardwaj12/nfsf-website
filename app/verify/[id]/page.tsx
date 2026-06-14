@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { supabase, type Donation } from "@/lib/supabase";
+import { getSupabase, type Donation } from "@/lib/supabase";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: { id: string };
 }
 
 export default async function VerifyPage({ params }: Props) {
-  const { data } = await supabase
+  const { data } = await getSupabase()
     .from("donations")
     .select("*")
     .eq("certificate_id", params.id)

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { supabase, Donation } from "@/lib/supabase";
+import { getSupabase, Donation } from "@/lib/supabase";
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function AdminDashboardPage() {
   // Fetch donations
   useEffect(() => {
     async function load() {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabase()
         .from("donations")
         .select("*")
         .order("created_at", { ascending: false });

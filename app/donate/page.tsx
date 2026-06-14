@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 const PRICE_PER_TREE = 300;
 
@@ -49,13 +49,13 @@ export default function DonatePage() {
     const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
     const certificate_id = `NFSF-${yyyymmdd}-${rand}`;
 
-    const { error } = await supabase.from("donations").insert({
+    const { error } = await getSupabase().from("donations").insert([{
       donor_name: form.name.trim(),
       email: form.email.trim(),
       trees: form.trees,
       amount: total,
       certificate_id,
-    });
+    }] as any);
 
     if (error) {
       setSubmitError("Something went wrong. Please try again.");

@@ -1,12 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { supabase, type Donation } from "@/lib/supabase";
+import { getSupabase, type Donation } from "@/lib/supabase";
 import { generateCertificate } from "@/lib/certificate";
 
 export default function ThankYouPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-mist-50 flex items-center justify-center">
+        <p className="text-gray-400">Loading…</p>
+      </div>
+    }>
+      <ThankYouContent />
+    </Suspense>
+  );
+}
+
+function ThankYouContent() {
   const searchParams = useSearchParams();
   const certId = searchParams.get("id");
 
@@ -16,7 +28,7 @@ export default function ThankYouPage() {
 
   useEffect(() => {
     if (!certId) { setLoading(false); return; }
-    supabase
+    getSupabase()
       .from("donations")
       .select("*")
       .eq("certificate_id", certId)
