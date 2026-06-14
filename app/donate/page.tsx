@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 const PRICE_PER_TREE = 300;
 
@@ -17,6 +18,8 @@ export default function DonatePage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState<FormData>({ name: "", email: "", trees: 1 });
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const total = form.trees * PRICE_PER_TREE;
 
@@ -37,16 +40,30 @@ export default function DonatePage() {
     setStep(2);
   }
 
-  function handleConfirm() {
-    const donation = {
-      name: form.name.trim(),
+  async function handleConfirm() {
+    setSubmitting(true);
+    setSubmitError(null);
+
+    const date = new Date();
+    const yyyymmdd = date.toISOString().slice(0, 10).replace(/-/g, "");
+    const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const certificate_id = `NFSF-${yyyymmdd}-${rand}`;
+
+    const { error } = await supabase.from("donations").insert({
+      donor_name: form.name.trim(),
       email: form.email.trim(),
       trees: form.trees,
       amount: total,
-      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }),
-    };
-    localStorage.setItem("nfsf_donation", JSON.stringify(donation));
-    router.push("/thank-you");
+      certificate_id,
+    });
+
+    if (error) {
+      setSubmitError("Something went wrong. Please try again.");
+      setSubmitting(false);
+      return;
+    }
+
+    router.push(`/thank-you?id=${certificate_id}`);
   }
 
   return (
@@ -190,11 +207,16 @@ export default function DonatePage() {
                   This is a mock payment — no money will be charged.
                 </p>
 
-                <button onClick={handleConfirm} className="btn-primary w-full justify-center text-base py-4">
-                  Confirm Donation (Mock)
-                  <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                {submitError && (
+                  <p className="text-red-500 text-sm text-center mb-3">{submitError}</p>
+                )}
+                <button onClick={handleConfirm} disabled={submitting} className="btn-primary w-full justify-center text-base py-4">
+                  {submitting ? "Processing…" : "Confirm Donation (Mock)"}
+                  {!submitting && (
+                    <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
                 </button>
 
                 <button

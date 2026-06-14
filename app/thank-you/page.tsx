@@ -1,24 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
-interface Donation {
-  name: string;
-  email: string;
-  trees: number;
-  amount: number;
-  date: string;
-}
+import { supabase, type Donation } from "@/lib/supabase";
 
 export default function ThankYouPage() {
+  const searchParams = useSearchParams();
+  const certId = searchParams.get("id");
+
   const [donation, setDonation] = useState<Donation | null>(null);
+  const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
-    const raw = localStorage.getItem("nfsf_donation");
-    if (raw) setDonation(JSON.parse(raw));
-  }, []);
+    if (!certId) { setLoading(false); return; }
+    supabase
+      .from("donations")
+      .select("*")
+      .eq("certificate_id", certId)
+      .single()
+      .then(({ data }) => {
+        setDonation(data ?? null);
+        setLoading(false);
+      });
+  }, [certId]);
 
   async function handleDownload() {
     if (!donation) return;
@@ -30,22 +36,18 @@ export default function ThankYouPage() {
     const W = 297;
     const H = 210;
 
-    // Background
     doc.setFillColor(240, 253, 244);
     doc.rect(0, 0, W, H, "F");
 
-    // Border
     doc.setDrawColor(20, 83, 45);
     doc.setLineWidth(2);
     doc.rect(10, 10, W - 20, H - 20);
     doc.setLineWidth(0.5);
     doc.rect(13, 13, W - 26, H - 26);
 
-    // Header band
     doc.setFillColor(12, 31, 20);
     doc.rect(10, 10, W - 20, 28, "F");
 
-    // Org name
     doc.setFont("times", "bold");
     doc.setFontSize(18);
     doc.setTextColor(255, 255, 255);
@@ -54,36 +56,30 @@ export default function ThankYouPage() {
     doc.setFont("helvetica", "normal");
     doc.text("Bangalore, India  ·  Registered under Societies Registration Act, 1860", W / 2, 33, { align: "center" });
 
-    // Certificate of Appreciation title
     doc.setFont("times", "bolditalic");
     doc.setFontSize(26);
     doc.setTextColor(20, 83, 45);
     doc.text("Certificate of Tree Plantation", W / 2, 60, { align: "center" });
 
-    // Divider line
     doc.setDrawColor(21, 128, 61);
     doc.setLineWidth(0.8);
     doc.line(40, 65, W - 40, 65);
 
-    // This is to certify
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
     doc.setTextColor(60, 60, 60);
     doc.text("This is to gratefully certify that", W / 2, 78, { align: "center" });
 
-    // Donor name
     doc.setFont("times", "bold");
     doc.setFontSize(28);
     doc.setTextColor(12, 31, 20);
-    doc.text(donation.name, W / 2, 94, { align: "center" });
+    doc.text(donation.donor_name, W / 2, 94, { align: "center" });
 
-    // Underline under name
-    const nameWidth = doc.getTextWidth(donation.name);
+    const nameWidth = doc.getTextWidth(donation.donor_name);
     doc.setDrawColor(180, 83, 9);
     doc.setLineWidth(0.6);
     doc.line(W / 2 - nameWidth / 2, 97, W / 2 + nameWidth / 2, 97);
 
-    // Body text
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     doc.setTextColor(60, 60, 60);
@@ -96,7 +92,6 @@ export default function ThankYouPage() {
       W / 2, 118, { align: "center" }
     );
 
-    // Thank you line
     doc.setFont("times", "italic");
     doc.setFontSize(11);
     doc.setTextColor(80, 80, 80);
@@ -105,19 +100,26 @@ export default function ThankYouPage() {
       W / 2, 130, { align: "center" }
     );
 
-    // Footer row
     doc.setDrawColor(20, 83, 45);
     doc.setLineWidth(0.5);
     doc.line(40, 150, W - 40, 150);
 
+    const dateStr = new Date(donation.created_at).toLocaleDateString("en-IN", {
+      day: "numeric", month: "long", year: "numeric",
+    });
+
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
-    doc.text(`Date: ${donation.date}`, 50, 160);
+    doc.text(`Date: ${dateStr}`, 50, 160);
     doc.text("Planting Location: Andhra Pradesh, India", W / 2, 160, { align: "center" });
     doc.text("nfsf.org.in", W - 50, 160, { align: "right" });
 
-    // Authorised signatory placeholder
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120);
+    doc.text(`Certificate ID: ${donation.certificate_id}`, W / 2, 170, { align: "center" });
+
     doc.setFont("times", "bold");
     doc.setFontSize(10);
     doc.setTextColor(20, 83, 45);
@@ -127,8 +129,16 @@ export default function ThankYouPage() {
     doc.setTextColor(120, 120, 120);
     doc.text("Nature and Farmer Sustainability Foundation", W / 2, 184, { align: "center" });
 
-    doc.save(`NFSF_Certificate_${donation.name.replace(/\s+/g, "_")}.pdf`);
+    doc.save(`NFSF_Certificate_${donation.donor_name.replace(/\s+/g, "_")}.pdf`);
     setDownloading(false);
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-mist-50 flex items-center justify-center">
+        <p className="text-gray-400">Loading…</p>
+      </div>
+    );
   }
 
   if (!donation) {
@@ -142,6 +152,10 @@ export default function ThankYouPage() {
     );
   }
 
+  const dateStr = new Date(donation.created_at).toLocaleDateString("en-IN", {
+    day: "numeric", month: "long", year: "numeric",
+  });
+
   return (
     <div className="min-h-screen bg-mist-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-4 py-4">
@@ -153,7 +167,6 @@ export default function ThankYouPage() {
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-lg text-center">
 
-          {/* Success icon */}
           <div className="w-20 h-20 rounded-full bg-forest-700 flex items-center justify-center mx-auto mb-6">
             <svg viewBox="0 0 32 32" fill="none" className="w-10 h-10 text-white" aria-hidden="true">
               <path d="M6 16l8 8 12-13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -161,21 +174,20 @@ export default function ThankYouPage() {
           </div>
 
           <h1 className="font-serif text-3xl text-forest-900 mb-2">
-            Thank you, {donation.name.split(" ")[0]}!
+            Thank you, {donation.donor_name.split(" ")[0]}!
           </h1>
           <p className="text-gray-500 mb-8">
             Your donation has been received. You&apos;re making a real difference.
           </p>
 
-          {/* Summary card */}
           <div className="bg-white rounded-2xl shadow-card p-7 mb-6 text-left space-y-4">
             <SummaryRow icon="🌳" label="Trees Planted" value={`${donation.trees} ${donation.trees === 1 ? "tree" : "trees"}`} />
             <SummaryRow icon="💰" label="Amount Donated" value={`₹${donation.amount.toLocaleString("en-IN")}`} />
-            <SummaryRow icon="📅" label="Date" value={donation.date} />
+            <SummaryRow icon="📅" label="Date" value={dateStr} />
             <SummaryRow icon="📍" label="Planting Location" value="Andhra Pradesh, India" />
+            <SummaryRow icon="🆔" label="Certificate ID" value={donation.certificate_id} />
           </div>
 
-          {/* Download certificate */}
           <button
             onClick={handleDownload}
             disabled={downloading}
@@ -200,6 +212,13 @@ export default function ThankYouPage() {
 
           <p className="text-xs text-gray-400 mt-6">
             A confirmation has been sent to {donation.email}
+          </p>
+
+          <p className="text-xs text-gray-400 mt-2">
+            Verify your certificate at{" "}
+            <Link href={`/verify/${donation.certificate_id}`} className="underline hover:text-forest-700">
+              /verify/{donation.certificate_id}
+            </Link>
           </p>
         </div>
       </main>
