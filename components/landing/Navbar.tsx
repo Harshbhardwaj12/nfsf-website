@@ -54,14 +54,17 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group min-h-[44px]" aria-label="Nature and Farmer Sustainability Foundation — Home">
-          <Image
-            src="/logo.png"
-            alt="Nature & Farmers Sustainability Foundation"
-            width={160}
-            height={48}
-            priority
-          />
+        <Link href="/" className="flex items-center min-h-[44px]" aria-label="Nature and Farmer Sustainability Foundation — Home">
+          <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm ring-1 ring-black/5">
+            <Image
+              src="/logo.png"
+              alt="Nature & Farmers Sustainability Foundation"
+              width={160}
+              height={48}
+              priority
+              className="h-7 w-auto sm:h-8"
+            />
+          </span>
         </Link>
 
         {/* Desktop nav links */}
