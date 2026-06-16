@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
 
@@ -71,7 +72,9 @@ export default function DonatePage() {
       {/* Simple header */}
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link href="/" className="font-serif font-bold text-forest-800 text-lg">NFSF</Link>
+          <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
+            <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
           <span className="text-sm text-gray-400">Secure Donation</span>
         </div>
       </header>
@@ -80,23 +83,23 @@ export default function DonatePage() {
         <div className="w-full max-w-lg">
 
           {/* Step indicator */}
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-2 sm:gap-3 mb-8">
             {[1, 2].map((s) => (
-              <div key={s} className="flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
+              <div key={s} className="flex items-center gap-2 sm:gap-3">
+                <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
                   s <= step ? "bg-forest-700 text-white" : "bg-gray-200 text-gray-400"
                 }`}>
                   {s}
                 </div>
-                <span className={`text-sm ${s === step ? "text-forest-800 font-medium" : "text-gray-400"}`}>
+                <span className={`text-xs sm:text-sm whitespace-nowrap ${s === step ? "text-forest-800 font-medium" : "text-gray-400"}`}>
                   {s === 1 ? "Your Details" : "Confirm Donation"}
                 </span>
-                {s < 2 && <div className="w-8 h-px bg-gray-300 mx-1" />}
+                {s < 2 && <div className="w-6 sm:w-8 h-px bg-gray-300 mx-0.5 sm:mx-1" />}
               </div>
             ))}
           </div>
 
-          <div className="bg-white rounded-2xl shadow-card p-8">
+          <div className="bg-white rounded-2xl shadow-card p-6 sm:p-8">
 
             {/* ── Step 1: Form ── */}
             {step === 1 && (
@@ -167,7 +170,7 @@ export default function DonatePage() {
                   </span>
                 </div>
 
-                <button type="submit" className="btn-primary w-full justify-center mt-6 text-base py-4">
+                <button type="submit" className="btn-primary w-full justify-center mt-6 text-base py-4 min-h-[44px]">
                   Proceed to Donate
                   <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -210,7 +213,7 @@ export default function DonatePage() {
                 {submitError && (
                   <p className="text-red-500 text-sm text-center mb-3">{submitError}</p>
                 )}
-                <button onClick={handleConfirm} disabled={submitting} className="btn-primary w-full justify-center text-base py-4">
+                <button onClick={handleConfirm} disabled={submitting} className="btn-primary w-full justify-center text-base py-4 min-h-[44px]">
                   {submitting ? "Processing…" : "Confirm Donation (Mock)"}
                   {!submitting && (
                     <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
@@ -221,7 +224,7 @@ export default function DonatePage() {
 
                 <button
                   onClick={() => setStep(1)}
-                  className="w-full text-center text-sm text-gray-400 hover:text-gray-600 mt-4 transition"
+                  className="w-full min-h-[44px] text-center text-sm text-gray-400 hover:text-gray-600 mt-4 transition"
                 >
                   ← Edit details
                 </button>

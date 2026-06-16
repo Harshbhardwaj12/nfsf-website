@@ -135,7 +135,7 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-serif text-white leading-tight mb-6" style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.25rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+            <h1 className="font-serif text-white leading-tight mb-6 break-words" style={{ fontSize: "clamp(1.9rem, 5.5vw, 4.25rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
               Every Tree You Plant{" "}
               <span className="italic text-forest-300">Outlives You.</span>
             </h1>
@@ -148,14 +148,14 @@ export default function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mb-12">
-              <Link href="#donate" className="btn-primary text-base py-3.5 px-7">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-12">
+              <Link href="#donate" className="btn-primary text-base py-3.5 px-7 w-full sm:w-auto min-h-[44px]">
                 Plant a Tree — ₹300
                 <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
-              <Link href="#how-it-works" className="btn-outline-white text-base py-3.5 px-7">
+              <Link href="/how-it-works" className="btn-outline-white text-base py-3.5 px-7 w-full sm:w-auto min-h-[44px]">
                 See How It Works
               </Link>
             </div>

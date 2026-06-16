@@ -98,9 +98,9 @@ export default function WhyItMatters() {
                   <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-forest-50 border border-forest-100 flex items-center justify-center text-forest-700 mt-0.5">
                     {point.icon}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-forest-900 mb-1">{point.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{point.body}</p>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-forest-900 mb-1 break-words">{point.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed break-words">{point.body}</p>
                   </div>
                 </div>
               ))}
@@ -110,7 +110,7 @@ export default function WhyItMatters() {
           {/* Right — visual */}
           <div className="animate-on-scroll relative" style={{ transitionDelay: "200ms" }}>
             {/* Big leaf SVG illustration */}
-            <div className="relative rounded-3xl overflow-hidden bg-forest-gradient p-10 lg:p-12 min-h-[420px] flex flex-col justify-between">
+            <div className="relative rounded-3xl overflow-hidden bg-forest-gradient p-6 sm:p-10 lg:p-12 min-h-[420px] flex flex-col justify-between">
 
               {/* Decorative background circles */}
               <div className="absolute inset-0" aria-hidden="true">
@@ -135,17 +135,17 @@ export default function WhyItMatters() {
               </div>
 
               {/* Key stat callout */}
-              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/15">
-                <p className="font-serif text-white/60 text-sm mb-3 uppercase tracking-wide">Your ₹300 Creates</p>
-                <div className="grid grid-cols-3 gap-4">
+              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-white/15">
+                <p className="font-serif text-white/60 text-sm mb-3 uppercase tracking-wide break-words">Your ₹300 Creates</p>
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   {[
                     { value: "10 kg", sub: "CO₂/year" },
                     { value: "50+", sub: "years lifespan" },
                     { value: "3×", sub: "farmer income boost" },
                   ].map((item) => (
-                    <div key={item.sub} className="text-center">
-                      <div className="font-serif font-bold text-white text-xl">{item.value}</div>
-                      <div className="text-white/55 text-xs mt-0.5">{item.sub}</div>
+                    <div key={item.sub} className="text-center min-w-0">
+                      <div className="font-serif font-bold text-white text-lg sm:text-xl break-words">{item.value}</div>
+                      <div className="text-white/55 text-xs mt-0.5 break-words">{item.sub}</div>
                     </div>
                   ))}
                 </div>

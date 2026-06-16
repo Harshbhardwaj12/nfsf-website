@@ -94,7 +94,7 @@ export default function HowItWorks() {
         <div className="relative">
           {/* Connecting line — desktop only */}
           <div
-            className="hidden lg:block absolute top-16 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px bg-gradient-to-r from-forest-200 via-forest-400 to-earth-400 opacity-40"
+            className="hidden md:block absolute top-16 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px bg-gradient-to-r from-forest-200 via-forest-400 to-earth-400 opacity-40"
             aria-hidden="true"
           />
 
@@ -136,7 +136,7 @@ export default function HowItWorks() {
         {/* Bottom CTA nudge */}
         <div className="mt-14 text-center animate-on-scroll" style={{ transitionDelay: "400ms" }}>
           <p className="text-sm text-gray-400 mb-4">Ready to make your mark?</p>
-          <a href="#donate" className="btn-primary text-base">
+          <a href="/donate" className="btn-primary text-base min-h-[44px]">
             Sponsor a Tree Now — ₹300
             <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

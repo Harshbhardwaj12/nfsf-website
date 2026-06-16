@@ -18,6 +18,26 @@ import { NOTO_SANS_REGULAR_B64, NOTO_SANS_BOLD_B64 } from "@/lib/certificateFont
 
 const VERIFY_DOMAIN = "nfsf.org.in";
 
+// Brand logo (public/logo.png) — intrinsic 1692×929 ⇒ aspect ratio.
+const LOGO_RATIO = 1692 / 929;
+
+/** Fetch an image and return it as a data URL (browser-only). */
+async function loadImageData(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
 // Palette (RGB tuples)
 const C = {
   paper: [255, 253, 247] as const,
@@ -181,10 +201,20 @@ export async function generateCertificate(donation: Donation): Promise<void> {
   set.fill(C.forestDark);
   doc.rect(12, 12, W - 24, 26, "F");
 
-  doc.setFont("times", "bold");
-  doc.setFontSize(17);
-  set.text(C.white);
-  doc.text("Nature and Farmer Sustainability Foundation", CX, 25, { align: "center" });
+  // Brand logo on a white plate (falls back to a wordmark if it can't be loaded).
+  const logoData = await loadImageData("/logo.png");
+  if (logoData) {
+    const lh = 13.5;
+    const lw = lh * LOGO_RATIO;
+    set.fill(C.white);
+    doc.roundedRect(CX - lw / 2 - 2.5, 13.6, lw + 5, lh + 2.4, 2, 2, "F");
+    doc.addImage(logoData, "PNG", CX - lw / 2, 14.8, lw, lh);
+  } else {
+    doc.setFont("times", "bold");
+    doc.setFontSize(17);
+    set.text(C.white);
+    doc.text("Nature and Farmer Sustainability Foundation", CX, 24, { align: "center" });
+  }
 
   doc.setFont("NotoSans", "normal");
   doc.setFontSize(8.5);
@@ -192,7 +222,7 @@ export async function generateCertificate(donation: Donation): Promise<void> {
   doc.text(
     "Bengaluru, India   ·   Registered under the Societies Registration Act, 1860",
     CX,
-    32.5,
+    34.5,
     { align: "center" }
   );
 

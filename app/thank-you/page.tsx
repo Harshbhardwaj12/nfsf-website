@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getSupabase, type Donation } from "@/lib/supabase";
 import { generateCertificate } from "@/lib/certificate";
 
@@ -76,7 +77,9 @@ function ThankYouContent() {
     <div className="min-h-screen bg-mist-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link href="/" className="font-serif font-bold text-forest-800 text-lg">NFSF</Link>
+          <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
+            <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
         </div>
       </header>
 
@@ -107,7 +110,7 @@ function ThankYouContent() {
           <button
             onClick={handleDownload}
             disabled={downloading}
-            className="btn-primary w-full justify-center text-base py-4 mb-4"
+            className="btn-primary w-full justify-center text-base py-4 min-h-[44px] mb-4"
           >
             {downloading ? "Generating PDF…" : "Download Certificate"}
             {!downloading && (
@@ -117,11 +120,11 @@ function ThankYouContent() {
             )}
           </button>
 
-          <div className="flex gap-3">
-            <Link href="/donate" className="btn-outline flex-1 justify-center text-sm py-3">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/donate" className="btn-outline w-full sm:w-auto sm:flex-1 justify-center text-sm py-3 min-h-[44px]">
               Donate Again
             </Link>
-            <Link href="/" className="btn-outline flex-1 justify-center text-sm py-3">
+            <Link href="/" className="btn-outline w-full sm:w-auto sm:flex-1 justify-center text-sm py-3 min-h-[44px]">
               Back to Home
             </Link>
           </div>

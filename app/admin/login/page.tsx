@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "nfsf@2025";
@@ -32,7 +33,13 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo / title */}
         <div className="text-center mb-8">
-          <span className="text-4xl">🌿</span>
+          <Image
+            src="/logo.png"
+            alt="Nature & Farmers Sustainability Foundation"
+            width={160}
+            height={48}
+            className="mx-auto"
+          />
           <h1 className="mt-3 text-2xl font-serif font-bold text-white">NFSF Admin</h1>
           <p className="mt-1 text-sm text-forest-300">Nature & Farmer Sustainability Foundation</p>
         </div>

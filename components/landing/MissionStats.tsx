@@ -118,7 +118,7 @@ export default function MissionStats() {
   }, []);
 
   return (
-    <section id="mission" className="py-20 lg:py-28 bg-white" aria-labelledby="mission-heading">
+    <section id="about" className="py-20 lg:py-28 bg-white" aria-labelledby="mission-heading">
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section heading */}
@@ -143,7 +143,7 @@ export default function MissionStats() {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {STATS.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} inView={inView} index={i} />
           ))}

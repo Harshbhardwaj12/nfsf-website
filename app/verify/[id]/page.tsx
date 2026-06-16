@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getSupabase, type Donation } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -7,7 +9,39 @@ interface Props {
   params: { id: string };
 }
 
-export default async function VerifyPage({ params }: Props) {
+function VerifyLoading() {
+  return (
+    <div className="min-h-screen bg-mist-50 flex flex-col">
+      <header className="bg-white border-b border-gray-100 px-4 py-4">
+        <div className="max-w-3xl mx-auto">
+          <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
+            <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
+        </div>
+      </header>
+      <main className="flex-1 flex items-center justify-center px-4 py-12">
+        <div className="flex flex-col items-center gap-4" role="status" aria-live="polite">
+          <span
+            className="w-10 h-10 rounded-full border-2 border-forest-200 border-t-forest-700 animate-spin"
+            aria-hidden="true"
+          />
+          <span className="text-gray-400 text-sm">Verifying certificate…</span>
+          <span className="sr-only">Loading certificate</span>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function VerifyPage({ params }: Props) {
+  return (
+    <Suspense fallback={<VerifyLoading />}>
+      <VerifyContent params={params} />
+    </Suspense>
+  );
+}
+
+async function VerifyContent({ params }: Props) {
   const { data } = await getSupabase()
     .from("donations")
     .select("*")
@@ -19,7 +53,9 @@ export default async function VerifyPage({ params }: Props) {
       <div className="min-h-screen bg-mist-50 flex flex-col">
         <header className="bg-white border-b border-gray-100 px-4 py-4">
           <div className="max-w-3xl mx-auto">
-            <Link href="/" className="font-serif font-bold text-forest-800 text-lg">NFSF</Link>
+            <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
+            <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
           </div>
         </header>
         <main className="flex-1 flex items-center justify-center px-4">
@@ -32,7 +68,7 @@ export default async function VerifyPage({ params }: Props) {
             </div>
             <h1 className="font-serif text-2xl text-forest-900 mb-2">Certificate Not Found</h1>
             <p className="text-gray-500 mb-6">
-              No donation record matches certificate ID <span className="font-mono font-medium text-forest-800">{params.id}</span>.
+              No donation record matches certificate ID <span className="font-mono font-medium text-forest-800 break-words">{params.id}</span>.
             </p>
             <Link href="/" className="btn-primary">Go to Homepage</Link>
           </div>
@@ -49,7 +85,9 @@ export default async function VerifyPage({ params }: Props) {
     <div className="min-h-screen bg-mist-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto">
-          <Link href="/" className="font-serif font-bold text-forest-800 text-lg">NFSF</Link>
+          <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
+            <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
         </div>
       </header>
 
@@ -63,11 +101,11 @@ export default async function VerifyPage({ params }: Props) {
                 <path d="M10 17l4 4 8-9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h1 className="font-serif text-2xl text-forest-900 mb-1">Certificate Verified</h1>
+            <h1 className="font-serif text-xl sm:text-2xl text-forest-900 mb-1">Certificate Verified</h1>
             <p className="text-gray-500 text-sm">This is an authentic NFSF donation certificate.</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-card p-7 space-y-4">
+          <div className="bg-white rounded-2xl shadow-card p-5 sm:p-7 space-y-4">
             <Row label="Donor Name" value={data.donor_name} />
             <Row label="Trees Planted" value={`${data.trees} ${data.trees === 1 ? "tree" : "trees"}`} />
             <Row label="Amount Donated" value={`₹${data.amount.toLocaleString("en-IN")}`} />
@@ -78,11 +116,11 @@ export default async function VerifyPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="mt-6 flex gap-3">
-            <Link href="/donate" className="btn-primary flex-1 justify-center text-sm py-3">
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <Link href="/donate" className="btn-primary w-full sm:w-auto sm:flex-1 justify-center text-sm py-3 min-h-[44px]">
               Plant a Tree
             </Link>
-            <Link href="/" className="btn-outline flex-1 justify-center text-sm py-3">
+            <Link href="/" className="btn-outline w-full sm:w-auto sm:flex-1 justify-center text-sm py-3 min-h-[44px]">
               Back to Home
             </Link>
           </div>
@@ -94,9 +132,9 @@ export default async function VerifyPage({ params }: Props) {
 
 function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div className="flex justify-between items-center">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className={`font-medium text-forest-800 ${mono ? "font-mono text-sm" : ""}`}>{value}</span>
+    <div className="flex justify-between items-start gap-3">
+      <span className="text-sm text-gray-500 flex-shrink-0">{label}</span>
+      <span className={`font-medium text-forest-800 text-right break-words min-w-0 ${mono ? "font-mono text-sm" : ""}`}>{value}</span>
     </div>
   );
 }
