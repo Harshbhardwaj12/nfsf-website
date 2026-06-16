@@ -50,16 +50,22 @@ export default function DonatePage() {
     const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
     const certificate_id = `NFSF-${yyyymmdd}-${rand}`;
 
-    const { error } = await getSupabase().from("donations").insert([{
-      donor_name: form.name.trim(),
-      email: form.email.trim(),
-      trees: form.trees,
-      amount: total,
-      certificate_id,
-    }] as any);
+    try {
+      const { error } = await getSupabase().from("donations").insert([{
+        donor_name: form.name.trim(),
+        email: form.email.trim(),
+        trees: form.trees,
+        amount: total,
+        certificate_id,
+      }] as any);
 
-    if (error) {
-      setSubmitError("Something went wrong. Please try again.");
+      if (error) {
+        setSubmitError("Something went wrong. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+    } catch {
+      setSubmitError("Unable to reach the server. Please check your connection and try again.");
       setSubmitting(false);
       return;
     }
