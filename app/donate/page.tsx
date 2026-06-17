@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { getSupabase } from "@/lib/supabase";
 
 const PRICE_PER_TREE = 300;
 
@@ -21,6 +20,7 @@ export default function DonatePage() {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState(""); // anti-bot: real users never fill this
 
   const total = form.trees * PRICE_PER_TREE;
 
@@ -45,32 +45,30 @@ export default function DonatePage() {
     setSubmitting(true);
     setSubmitError(null);
 
-    const date = new Date();
-    const yyyymmdd = date.toISOString().slice(0, 10).replace(/-/g, "");
-    const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const certificate_id = `NFSF-${yyyymmdd}-${rand}`;
-
     try {
-      const { error } = await getSupabase().from("donations").insert([{
-        donor_name: form.name.trim(),
-        email: form.email.trim(),
-        trees: form.trees,
-        amount: total,
-        certificate_id,
-      }] as any);
+      const res = await fetch("/api/donate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          trees: form.trees,
+          company: honeypot,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
 
-      if (error) {
-        setSubmitError("Something went wrong. Please try again.");
+      if (!res.ok) {
+        setSubmitError(data.error || "Something went wrong. Please try again.");
         setSubmitting(false);
         return;
       }
+
+      router.push(`/thank-you?id=${encodeURIComponent(data.certificate_id)}`);
     } catch {
       setSubmitError("Unable to reach the server. Please check your connection and try again.");
       setSubmitting(false);
-      return;
     }
-
-    router.push(`/thank-you?id=${certificate_id}`);
   }
 
   return (
@@ -110,6 +108,17 @@ export default function DonatePage() {
             {/* ── Step 1: Form ── */}
             {step === 1 && (
               <form onSubmit={handleProceed} noValidate>
+                {/* Honeypot — hidden from humans; bots that fill it are rejected server-side */}
+                <input
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+                />
                 <h1 className="font-serif text-2xl text-forest-900 mb-1">Plant a Tree</h1>
                 <p className="text-gray-500 text-sm mb-7">₹{PRICE_PER_TREE} per tree · GPS-verified planting in Andhra Pradesh</p>
 
@@ -121,6 +130,7 @@ export default function DonatePage() {
                     <input
                       id="name"
                       type="text"
+                      maxLength={100}
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Your name"
@@ -138,6 +148,7 @@ export default function DonatePage() {
                     <input
                       id="email"
                       type="email"
+                      maxLength={254}
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="you@example.com"

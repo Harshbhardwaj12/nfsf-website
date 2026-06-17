@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { getSupabase, Donation } from "@/lib/supabase";
+import { Donation } from "@/lib/supabase";
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -10,30 +10,27 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  // Auth guard
-  useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("isAdmin") !== "true") {
-      router.replace("/admin/login");
-    }
-  }, [router]);
-
-  // Fetch donations
+  // Fetch donations (server enforces admin auth; 401 → redirect to login)
   useEffect(() => {
     async function load() {
-      const { data, error } = await getSupabase()
-        .from("donations")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (!error && data) setDonations(data as Donation[]);
-      setLoading(false);
+      try {
+        const res = await fetch("/api/admin/donations");
+        if (res.status === 401) {
+          router.replace("/admin/login");
+          return;
+        }
+        const d = await res.json().catch(() => ({}));
+        if (res.ok && d.donations) setDonations(d.donations as Donation[]);
+      } finally {
+        setLoading(false);
+      }
     }
     load();
-  }, []);
+  }, [router]);
 
-  function logout() {
-    localStorage.removeItem("isAdmin");
-    router.push("/admin/login");
+  async function logout() {
+    await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
+    router.replace("/admin/login");
   }
 
   const filtered = useMemo(() => {
@@ -146,7 +143,7 @@ export default function AdminDashboardPage() {
                       </td>
                       <td className="px-4 py-3 text-center">
                         <a
-                          href={`/verify/${d.id}`}
+                          href={`/verify/${d.certificate_id}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block text-xs px-3 py-1 rounded-full bg-forest-50 text-forest-700 hover:bg-forest-100 border border-forest-200 transition-colors font-medium"

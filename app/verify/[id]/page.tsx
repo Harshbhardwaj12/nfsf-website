@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getSupabase, type Donation } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { type Donation } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +43,9 @@ export default function VerifyPage({ params }: Props) {
 }
 
 async function VerifyContent({ params }: Props) {
-  const { data } = await getSupabase()
+  const { data } = await getSupabaseAdmin()
     .from("donations")
-    .select("*")
+    .select("donor_name,trees,amount,certificate_id,created_at")
     .eq("certificate_id", params.id)
     .single<Donation>();
 

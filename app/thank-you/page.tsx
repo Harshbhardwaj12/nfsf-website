@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getSupabase, type Donation } from "@/lib/supabase";
+import { type Donation } from "@/lib/supabase";
 import { generateCertificate } from "@/lib/certificate";
 
 export default function ThankYouPage() {
@@ -29,13 +29,14 @@ function ThankYouContent() {
 
   useEffect(() => {
     if (!certId) { setLoading(false); return; }
-    getSupabase()
-      .from("donations")
-      .select("*")
-      .eq("certificate_id", certId)
-      .single()
-      .then(({ data }) => {
-        setDonation(data ?? null);
+    fetch(`/api/donation/${encodeURIComponent(certId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        setDonation(d?.donation ?? null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setDonation(null);
         setLoading(false);
       });
   }, [certId]);

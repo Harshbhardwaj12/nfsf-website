@@ -4,9 +4,6 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "nfsf@2025";
-
 export default function AdminLoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -14,16 +11,27 @@ export default function AdminLoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      localStorage.setItem("isAdmin", "true");
-      router.push("/admin/dashboard");
-    } else {
-      setError("Invalid username or password.");
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        router.replace("/admin/dashboard");
+        router.refresh();
+      } else {
+        const d = await res.json().catch(() => ({}));
+        setError(d.error || "Invalid username or password.");
+        setLoading(false);
+      }
+    } catch {
+      setError("Network error. Please try again.");
       setLoading(false);
     }
   }
