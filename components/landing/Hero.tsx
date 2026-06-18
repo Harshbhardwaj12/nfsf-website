@@ -146,7 +146,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-7 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-forest-400 animate-pulse" aria-hidden="true" />
               <span className="text-white/85 text-xs font-semibold tracking-widest uppercase">
-                Bangalore HQ · Planting across Andhra Pradesh
+                We plant real trees — so you don't have to
               </span>
             </div>
 
@@ -162,11 +162,10 @@ export default function Hero() {
 
             {/* Subtext */}
             <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-9 max-w-xl font-sans font-light">
-              For just{" "}
-              <strong className="text-white font-semibold">₹300</strong>, you sponsor a native sapling
-              planted and nurtured by farming communities in Andhra Pradesh. We tend it as it grows to
-              draw down carbon and revive the land — and send you a verified digital certificate of the
-              tree that now carries your name.
+              Too busy to plant a tree yourself? For just{" "}
+              <strong className="text-white font-semibold">₹300</strong>, our farmers plant and care for
+              a native tree on our own land — no time, land, or effort needed from you. It draws down
+              carbon for decades, and we send you a digital certificate for the tree that carries your name.
             </p>
 
             {/* CTAs */}
@@ -186,7 +185,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-x-8 gap-y-4 items-center border-t border-white/15 pt-7">
               {[
                 { value: "12,450+", label: "Trees in the ground" },
-                { value: "AP farmlands", label: "Where we plant" },
+                { value: "100%", label: "Cared for by us" },
                 { value: "100%", label: "Verified & certified" },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col">

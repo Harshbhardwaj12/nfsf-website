@@ -220,7 +220,7 @@ export async function generateCertificate(donation: Donation): Promise<void> {
   doc.setFontSize(8.5);
   set.text(C.sageLight);
   doc.text(
-    "Bengaluru, India   ·   Registered under the Societies Registration Act, 1860",
+    "Registered under the Societies Registration Act, 1860",
     CX,
     34.5,
     { align: "center" }
@@ -269,7 +269,7 @@ export async function generateCertificate(donation: Donation): Promise<void> {
   doc.setFontSize(12);
   set.text(C.ink);
   doc.text(
-    `has generously sponsored the planting of ${donation.trees} ${treeWord} in Andhra Pradesh, India,`,
+    `has generously sponsored the planting and lifelong care of ${donation.trees} ${treeWord} through our farmers,`,
     CX,
     103,
     { align: "center" }
@@ -302,7 +302,7 @@ export async function generateCertificate(donation: Donation): Promise<void> {
         year: "numeric",
       }),
     ],
-    ["PLANTING LOCATION", "Andhra Pradesh, India"],
+    ["PLANTED ON", "Our own farmland"],
     ["TREES PLANTED", `${donation.trees}`],
     ["CONTRIBUTION", inr(donation.amount)],
   ];

@@ -110,16 +110,16 @@ export default function DonationCTA() {
             </div>
 
             <p className="animate-on-scroll text-white/75 text-lg leading-relaxed mb-8" style={{ transitionDelay: "100ms" }}>
-              Your gift does more than plant a tree — it puts down living roots. Each native sapling
-              grows for 50+ years, drawing down carbon, reviving soil and biodiversity, and creating
-              honest work for farming families in Andhra Pradesh. In return, you receive a personalised
-              digital certificate to keep, share, or gift.
+              No time, land, or know-how needed — we do it all for you. For ₹300, our farmers plant and
+              care for a native tree on our own land. It grows for 50+ years, drawing down carbon and
+              reviving soil and biodiversity, so your gift leaves a lasting climate legacy. In return, you
+              receive a personalised digital certificate to keep, share, or gift.
             </p>
 
             {/* What you get */}
             <ul className="animate-on-scroll space-y-3 mb-8" style={{ transitionDelay: "150ms" }} role="list">
               {[
-                "GPS-verified planting on Andhra Pradesh farmland",
+                "A real native tree planted & cared for on our own land",
                 "Personalised digital certificate within 7 days",
                 "Annual growth update delivered to your inbox",
                 "80G tax-exemption receipt for every donation",

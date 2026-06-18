@@ -8,7 +8,7 @@ const STATS = [
     value: 12450,
     suffix: "+",
     label: "Trees Planted",
-    sub: "Across Andhra Pradesh",
+    sub: "On our own land",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
         <path d="M16 4C9 4 4 10 4 16c0 4.5 2.5 8 6 10h12c3.5-2 6-5.5 6-10 0-6-5-12-12-12z" fill="#15803D" fillOpacity="0.15" stroke="#15803D" strokeWidth="1.5" />
@@ -19,9 +19,9 @@ const STATS = [
   },
   {
     value: 3,
-    suffix: " States",
-    label: "Regions Covered",
-    sub: "AP, Karnataka, Tamil Nadu",
+    suffix: " Years",
+    label: "Care Per Tree",
+    sub: "Tended by our farmers",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
         <circle cx="16" cy="16" r="11" stroke="#15803D" strokeWidth="1.5" fill="#15803D" fillOpacity="0.1" />
@@ -33,7 +33,7 @@ const STATS = [
     value: 2800,
     suffix: "+",
     label: "Generous Donors",
-    sub: "From across India",
+    sub: "From every city",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
         <circle cx="12" cy="11" r="4" stroke="#15803D" strokeWidth="1.5" fill="#15803D" fillOpacity="0.1" />
@@ -81,7 +81,7 @@ const VALUES = [
   },
   {
     title: "Transparent to the Root",
-    body: "Each tree is GPS-tagged and photographed at planting, so your certificate carries the exact spot where it grows.",
+    body: "Every tree is planted and cared for by our farmers, with photo updates as it grows — and your personalised certificate is your lasting proof.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
         <path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z" stroke="#14532D" strokeWidth="1.5" strokeLinejoin="round" />
@@ -199,7 +199,7 @@ export default function MissionStats() {
 
             <div className="mt-6 space-y-5 text-gray-600 leading-relaxed max-w-xl">
               <p className="text-lg">
-                Founded in Bangalore in 2019, the{" "}
+                Founded in 2019, the{" "}
                 <span className="font-medium text-forest-800">
                   Nature &amp; Farmers Sustainability Foundation
                 </span>{" "}
@@ -207,11 +207,10 @@ export default function MissionStats() {
                 tend it are one and the same work.
               </p>
               <p>
-                We partner with farming communities across Andhra Pradesh to bring degraded,
-                weather-worn land back to life — planting native trees that hold the soil,
-                cool the climate and return a lasting livelihood to farmer families. Every
-                rupee you give funds the planting, the years of care that follow, and the
-                households who make it possible.
+                We run our own network of farmers who plant and nurture native trees on
+                dedicated land, so anyone — however busy — can grow a real, lasting forest
+                without lifting a finger. You give; we do the rest: the planting, the years
+                of care that follow, and the climate benefit that comes back to you.
               </p>
             </div>
 
@@ -289,7 +288,7 @@ export default function MissionStats() {
             <div className="relative aspect-[5/4] w-full overflow-hidden rounded-3xl ring-1 ring-black/5 shadow-xl">
               <Image
                 src="/images/farmer-field.jpg"
-                alt="A South Indian farmer plowing a paddy field with bullocks, palm trees lining the horizon"
+                alt="A farmer plowing a field with bullocks, palm trees lining the horizon"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"

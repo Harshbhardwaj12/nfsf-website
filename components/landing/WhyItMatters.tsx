@@ -5,8 +5,8 @@ import Image from "next/image";
 
 const POINTS = [
   {
-    title: "Carbon Credits & CO₂ Sequestration",
-    body: "A single native tree sequesters approximately 10 kg of CO₂ per year for the first decade — and significantly more as it matures. Your ₹300 donation creates a permanent carbon sink, contributing to India's NDC commitments under the Paris Agreement.",
+    title: "Carbon Credits & CO₂ Drawdown",
+    body: "A single native tree sequesters approximately 10 kg of CO₂ per year for the first decade — and significantly more as it matures. For ₹300, we plant and tend it for you, so your tree keeps drawing down carbon for decades while you get on with your busy life. A permanent carbon sink, contributing to India's NDC commitments under the Paris Agreement.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden="true">
         <path d="M12 3C7 3 3 7.5 3 12c0 3.3 1.8 6.2 4.5 7.8h9C19.2 18.2 21 15.3 21 12c0-4.5-4-9-9-9z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1" />
@@ -16,7 +16,7 @@ const POINTS = [
   },
   {
     title: "Indian Reforestation Policy Alignment",
-    body: "NFSF works within the Government of India's Green India Mission and CAMPA framework. Our plantations are counted toward AP's state forest cover targets, meaning your donation is doubly impactful — ecologically and institutionally.",
+    body: "NFSF works within the Government of India's Green India Mission and CAMPA framework. Our plantations are counted toward national forest cover targets, meaning your donation is doubly impactful — ecologically and institutionally.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden="true">
         <path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1" />
@@ -26,7 +26,7 @@ const POINTS = [
   },
   {
     title: "Farmer Livelihoods & Agroforestry",
-    body: "We don't just plant trees — we integrate them into existing farmlands. Pongamia for biodiesel, Tamarind for income, Neem for soil health. Farmers earn from the trees they tend, creating a virtuous cycle of ecology and economy.",
+    body: "We don't just plant trees — our own farmers integrate them into our farmland. Pongamia for biodiesel, Tamarind for income, Neem for soil health. The farmers who tend your tree earn from it, creating a virtuous cycle of ecology and economy.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden="true">
         <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1" />
@@ -92,7 +92,9 @@ export default function WhyItMatters() {
               >
                 India has committed to creating an additional carbon sink of 2.5–3 billion tonnes of
                 CO₂ equivalent through forest and tree cover. Every tree you sponsor is a direct
-                contribution to this national promise — and a personal legacy that grows for decades.
+                contribution to this national promise — we plant and care for it for you, and it
+                keeps drawing down CO₂ for decades as a personal legacy that grows while you get on
+                with your busy life.
               </p>
 
               {/* Signature line */}
@@ -109,7 +111,7 @@ export default function WhyItMatters() {
                 <div className="relative aspect-[4/3]">
                   <Image
                     src="/images/farmer-field.jpg"
-                    alt="A South Indian farmer plowing a paddy field with bullocks, where NFSF integrates native trees into working farmland."
+                    alt="One of our farmers preparing the land where sponsored trees grow."
                     fill
                     loading="lazy"
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -129,7 +131,7 @@ export default function WhyItMatters() {
                       Trees rooted in working farmland — not a number on a ledger.
                     </p>
                     <p className="text-white/75 text-xs mt-1 break-words">
-                      Agroforestry plots, Andhra Pradesh
+                      Tended on our own farmland
                     </p>
                   </figcaption>
                 </div>

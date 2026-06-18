@@ -120,7 +120,7 @@ export default function DonatePage() {
                   style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
                 />
                 <h1 className="font-serif text-2xl text-forest-900 mb-1">Plant a Tree</h1>
-                <p className="text-gray-500 text-sm mb-7">₹{PRICE_PER_TREE} per tree · GPS-verified planting in Andhra Pradesh</p>
+                <p className="text-gray-500 text-sm mb-7">₹{PRICE_PER_TREE} per tree · We plant and care for it for you</p>
 
                 <div className="space-y-5">
                   <div>

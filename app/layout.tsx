@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Nature and Farmer Sustainability Foundation — Plant a Tree for ₹300",
   description:
-    "Support reforestation in Andhra Pradesh. Donate ₹300 to plant a tree, receive a digital certificate, and help offset carbon emissions. Based in Bangalore.",
-  keywords: ["tree plantation", "India", "NGO", "Andhra Pradesh", "carbon offset", "reforestation", "donate"],
+    "We plant a tree for you. For ₹300, our farmers plant and care for a real native tree on our own land — you do nothing and get the carbon offset plus a personalised digital certificate. Made for busy people.",
+  keywords: ["tree plantation", "India", "NGO", "carbon credits", "carbon offset", "reforestation", "donate", "plant a tree online", "gift a tree"],
   openGraph: {
     title: "Nature and Farmer Sustainability Foundation",
-    description: "Plant a tree in Andhra Pradesh for ₹300. Receive a digital certificate.",
+    description: "We plant and care for a real tree for you, for ₹300. Get the carbon offset and a personalised digital certificate — without lifting a finger.",
     type: "website",
   },
 };

@@ -111,7 +111,7 @@ async function VerifyContent({ params }: Props) {
             <Row label="Trees Planted" value={`${data.trees} ${data.trees === 1 ? "tree" : "trees"}`} />
             <Row label="Amount Donated" value={`₹${data.amount.toLocaleString("en-IN")}`} />
             <Row label="Date" value={dateStr} />
-            <Row label="Planting Location" value="Andhra Pradesh, India" />
+            <Row label="Planting Location" value="Our own farmland" />
             <div className="border-t border-gray-100 pt-4">
               <Row label="Certificate ID" value={data.certificate_id} mono />
             </div>

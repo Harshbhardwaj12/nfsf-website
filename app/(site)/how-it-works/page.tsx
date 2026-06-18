@@ -4,7 +4,7 @@ import HowItWorks from "@/components/landing/HowItWorks";
 export const metadata: Metadata = {
   title: "How It Works — Nature and Farmer Sustainability Foundation",
   description:
-    "Three simple steps: donate ₹300, we plant your tree in Andhra Pradesh, and you receive a verified digital certificate.",
+    "Three simple steps: donate ₹300, we plant and care for your tree, and you receive a verified digital certificate.",
 };
 
 export default function HowItWorksPage() {

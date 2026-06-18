@@ -46,7 +46,7 @@ const STEPS: Step[] = [
     eyebrow: "Your contribution",
     title: "You Donate",
     description:
-      "Sponsor a single tree or a whole grove for ₹300 each. Payment is secure and one-time — there are no hidden fees, and every rupee funds planting and three years of care on the ground.",
+      "Sponsor a single tree or a whole grove for ₹300 each — it takes just a few taps. No time, land, or effort needed on your part; every rupee funds planting and three years of care, all handled for you.",
     image: "/images/hands-sapling.jpg",
     alt: "Cupped hands cradling rich soil and a young green sprout, ready for planting.",
     accent: "forest",
@@ -60,12 +60,12 @@ const STEPS: Step[] = [
     eyebrow: "On the ground",
     title: "We Plant",
     description:
-      "Our field team and partner farmers plant a native sapling in Andhra Pradesh. Each tree is GPS-tagged at its exact location and photographed at planting, so nothing is left to trust alone.",
+      "Our farmers plant a native sapling on our own land and care for it for years — we photograph it and send updates as it grows. You lift not a finger.",
     image: "/images/planting-hand.jpg",
     alt: "A farmer's hand gently pressing a seedling into a nursery planting tray.",
     accent: "forest",
     meta: [
-      { label: "GPS-verified location", icon: PinIcon },
+      { label: "Planted & cared for", icon: PinIcon },
       { label: "Photographed at planting", icon: CheckIcon },
     ],
   },
@@ -74,13 +74,13 @@ const STEPS: Step[] = [
     eyebrow: "Your proof",
     title: "You Receive Your Certificate",
     description:
-      "Within 7 days you receive a personalised digital certificate carrying your tree's species, planting date, and GPS coordinates — a lasting, shareable record of the forest you helped grow.",
+      "Within 7 days you receive a personalised digital certificate carrying your tree's species and planting date — a lasting, shareable record of the forest you helped grow, and an easy way to gift impact to someone you love.",
     image: "/images/forest-path.jpg",
     alt: "A sunlit path winding through a lush, mature forest of tall green trees.",
     accent: "earth",
     meta: [
       { label: "Delivered within 7 days", icon: ClockIcon },
-      { label: "Verifiable GPS coordinates", icon: PinIcon },
+      { label: "Yours to share & gift", icon: PinIcon },
     ],
   },
 ];
@@ -135,8 +135,8 @@ export default function HowItWorks() {
             <span className="italic text-forest-700">Lasting Impact</span>
           </h2>
           <p className="text-gray-600 text-lg leading-relaxed">
-            From your donation to a tree rooted in real soil, every step is documented — so you can
-            see exactly where your impact takes root.
+            From your donation to a tree rooted in real soil and cared for over years, every step is
+            handled for you — so you can see the real impact your gift makes.
           </p>
         </div>
 

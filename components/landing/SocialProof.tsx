@@ -6,22 +6,22 @@ import Image from "next/image";
 const TESTIMONIALS = [
   {
     name: "Arjun Mehta",
-    location: "Bengaluru",
+    location: "Busy parent",
     role: "Software Engineer",
     initials: "AM",
     color: "#15803D",
     quote:
-      "I planted 5 trees in memory of my grandfather. The certificate arrived beautifully — I've framed it at home. Knowing exactly where each tree stands in AP means everything.",
+      "I sponsored 5 trees in memory of my grandfather — and did nothing else; they planted and care for them for me. The certificate arrived beautifully, and I've framed it at home.",
     trees: 5,
   },
   {
     name: "Priya Venkataraman",
-    location: "Chennai",
+    location: "Startup founder",
     role: "Architect",
     initials: "PV",
     color: "#B45309",
     quote:
-      "As someone who thinks about sustainability professionally, NFSF's transparency impressed me. GPS coordinates, species names, photo updates — this is how impact should be measured.",
+      "As someone who thinks about sustainability professionally, NFSF's transparency impressed me. Species names, planting dates, photo updates — real proof, no greenwashing.",
     trees: 10,
   },
 ];
