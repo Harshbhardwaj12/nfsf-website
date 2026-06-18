@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const POINTS = [
   {
@@ -58,102 +59,170 @@ export default function WhyItMatters() {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="py-20 lg:py-28 bg-white" aria-labelledby="why-heading">
-      <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+    <section className="bg-white" aria-labelledby="why-heading">
+      <div ref={sectionRef}>
 
-          {/* Left — text */}
-          <div>
-            <span className="inline-block text-earth-500 text-sm font-semibold uppercase tracking-widest mb-3">
-              Why It Matters
-            </span>
-            <h2
-              id="why-heading"
-              className="animate-on-scroll font-serif text-forest-900 mb-6"
-              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.2 }}
-            >
-              A Tree Is the Most Efficient{" "}
-              <span className="italic text-forest-700">Climate Machine</span> Ever Built
-            </h2>
-            <p className="animate-on-scroll text-gray-600 text-lg leading-relaxed mb-10" style={{ transitionDelay: "100ms" }}>
-              India has committed to creating an additional carbon sink of 2.5–3 billion tonnes of
-              CO₂ equivalent through forest and tree cover. Every tree you sponsor is a direct
-              contribution to this national promise — and a personal legacy that grows for decades.
-            </p>
+        {/* ── Editorial intro: text + farmer livelihoods photo ───────── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-            <div className="space-y-6">
-              {POINTS.map((point, i) => (
-                <div
-                  key={point.title}
-                  className="animate-on-scroll flex gap-4"
-                  style={{ transitionDelay: `${(i + 2) * 100}ms` }}
-                >
-                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-forest-50 border border-forest-100 flex items-center justify-center text-forest-700 mt-0.5">
-                    {point.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold text-forest-900 mb-1 break-words">{point.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed break-words">{point.body}</p>
-                  </div>
+            {/* Left — text */}
+            <div className="min-w-0">
+              <span className="block text-xs font-semibold uppercase tracking-widest text-forest-600 mb-3">
+                Why It Matters
+              </span>
+              <h2
+                id="why-heading"
+                className="animate-on-scroll font-serif tracking-tight text-forest-900 mb-6"
+                style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.875rem)", lineHeight: 1.15 }}
+              >
+                A Tree Is the Most Efficient{" "}
+                <span className="italic text-forest-700">Climate Machine</span> Ever Built
+              </h2>
+              <p
+                className="animate-on-scroll text-gray-600 text-lg leading-relaxed max-w-prose"
+                style={{ transitionDelay: "100ms" }}
+              >
+                India has committed to creating an additional carbon sink of 2.5–3 billion tonnes of
+                CO₂ equivalent through forest and tree cover. Every tree you sponsor is a direct
+                contribution to this national promise — and a personal legacy that grows for decades.
+              </p>
+
+              {/* Signature line */}
+              <div
+                className="animate-on-scroll mt-8 h-px w-24 bg-gradient-to-r from-earth-500 to-transparent"
+                style={{ transitionDelay: "150ms" }}
+                aria-hidden="true"
+              />
+            </div>
+
+            {/* Right — farmer livelihoods photo */}
+            <div className="animate-on-scroll min-w-0" style={{ transitionDelay: "150ms" }}>
+              <figure className="relative rounded-3xl overflow-hidden ring-1 ring-black/5 shadow-xl">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/farmer-field.jpg"
+                    alt="A South Indian farmer plowing a paddy field with bullocks, where NFSF integrates native trees into working farmland."
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center"
+                  />
+                  {/* Forest-tinted gradient for caption legibility */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(7,26,13,0) 45%, rgba(7,26,13,0.78) 100%)",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <figcaption className="absolute bottom-0 inset-x-0 p-5 sm:p-6">
+                    <p className="font-serif italic text-white text-base sm:text-lg leading-snug break-words">
+                      Trees rooted in working farmland — not a number on a ledger.
+                    </p>
+                    <p className="text-white/75 text-xs mt-1 break-words">
+                      Agroforestry plots, Andhra Pradesh
+                    </p>
+                  </figcaption>
                 </div>
-              ))}
+              </figure>
             </div>
           </div>
+        </div>
 
-          {/* Right — visual */}
-          <div className="animate-on-scroll relative" style={{ transitionDelay: "200ms" }}>
-            {/* Big leaf SVG illustration */}
-            <div className="relative rounded-3xl overflow-hidden bg-forest-gradient p-6 sm:p-10 lg:p-12 min-h-[420px] flex flex-col justify-between">
+        {/* ── Full-bleed warm photographic band (carbon / climate) ───── */}
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0" aria-hidden="true">
+            <Image
+              src="/images/forest-sunset.jpg"
+              alt=""
+              fill
+              loading="lazy"
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+          {/* Forest-tinted overlay — keeps text contrast ≥ 4.5:1 */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(7,26,13,0.86) 0%, rgba(12,31,20,0.72) 45%, rgba(20,83,45,0.6) 100%)",
+            }}
+            aria-hidden="true"
+          />
 
-              {/* Decorative background circles */}
-              <div className="absolute inset-0" aria-hidden="true">
-                <div className="absolute top-8 right-8 w-40 h-40 rounded-full bg-white opacity-[0.04]" />
-                <div className="absolute bottom-12 left-6 w-24 h-24 rounded-full bg-white opacity-[0.06]" />
-              </div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-              {/* Large tree SVG */}
-              <div className="relative z-10 flex justify-center mb-8" aria-hidden="true">
-                <svg viewBox="0 0 180 200" fill="none" className="w-44 h-44 drop-shadow-lg">
-                  {/* Canopy layers */}
-                  <ellipse cx="90" cy="90" rx="70" ry="55" fill="rgba(34,197,94,0.25)" />
-                  <ellipse cx="90" cy="75" rx="55" ry="45" fill="rgba(22,163,74,0.4)" />
-                  <ellipse cx="90" cy="60" rx="40" ry="35" fill="rgba(21,128,61,0.65)" />
-                  <ellipse cx="90" cy="48" rx="28" ry="24" fill="rgba(20,83,45,0.9)" />
-                  {/* Trunk */}
-                  <rect x="83" y="130" width="14" height="55" rx="7" fill="rgba(20,83,45,0.7)" />
-                  {/* Roots */}
-                  <path d="M83 178 C70 185 55 182 48 190" stroke="rgba(20,83,45,0.5)" strokeWidth="3" strokeLinecap="round" />
-                  <path d="M97 180 C110 187 125 184 132 192" stroke="rgba(20,83,45,0.5)" strokeWidth="3" strokeLinecap="round" />
-                </svg>
-              </div>
+              {/* Band copy */}
+              <div className="min-w-0">
+                <span className="block text-xs font-semibold uppercase tracking-widest text-forest-300 mb-3">
+                  The Compounding Return
+                </span>
+                <p
+                  className="animate-on-scroll font-serif tracking-tight text-white break-words"
+                  style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", lineHeight: 1.25 }}
+                >
+                  Plant once. It keeps giving for{" "}
+                  <span className="italic text-forest-300">fifty years</span> — drawing down
+                  carbon every season it stands.
+                </p>
 
-              {/* Key stat callout */}
-              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-white/15">
-                <p className="font-serif text-white/60 text-sm mb-3 uppercase tracking-wide break-words">Your ₹300 Creates</p>
-                <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                  {[
-                    { value: "10 kg", sub: "CO₂/year" },
-                    { value: "50+", sub: "years lifespan" },
-                    { value: "3×", sub: "farmer income boost" },
-                  ].map((item) => (
-                    <div key={item.sub} className="text-center min-w-0">
-                      <div className="font-serif font-bold text-white text-lg sm:text-xl break-words">{item.value}</div>
-                      <div className="text-white/55 text-xs mt-0.5 break-words">{item.sub}</div>
-                    </div>
-                  ))}
+                {/* Stat callout — restyled, overflow-safe */}
+                <div className="animate-on-scroll mt-8 bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-white/15" style={{ transitionDelay: "100ms" }}>
+                  <p className="text-white/60 text-xs mb-3 uppercase tracking-widest break-words">
+                    Your ₹300 Creates
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                    {[
+                      { value: "10 kg", sub: "CO₂/year" },
+                      { value: "50+", sub: "years lifespan" },
+                      { value: "3×", sub: "farmer income boost" },
+                    ].map((item) => (
+                      <div key={item.sub} className="text-center min-w-0">
+                        <div className="font-serif font-bold text-white text-xl sm:text-2xl break-words">{item.value}</div>
+                        <div className="text-white/60 text-xs mt-0.5 break-words">{item.sub}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Badge */}
-              <div className="absolute top-5 left-5 bg-earth-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                Govt. Aligned
+              {/* Refined point items in a glass card */}
+              <div className="animate-on-scroll min-w-0" style={{ transitionDelay: "150ms" }}>
+                <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl border border-white/15 p-5 sm:p-7 lg:p-8">
+                  {/* "Govt. Aligned" badge */}
+                  <div className="absolute -top-3 left-5 sm:left-7 bg-earth-500 text-white text-[11px] font-semibold px-3 py-1 rounded-full shadow-lg">
+                    Govt. Aligned
+                  </div>
+
+                  <ul className="space-y-5 sm:space-y-6 mt-2">
+                    {POINTS.map((point, i) => (
+                      <li
+                        key={point.title}
+                        className="animate-on-scroll flex gap-4 min-w-0"
+                        style={{ transitionDelay: `${(i + 3) * 80}ms` }}
+                      >
+                        <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-forest-300 mt-0.5">
+                          {point.icon}
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="font-semibold text-white text-[15px] mb-1 break-words">{point.title}</h3>
+                          <p className="text-white/65 text-sm leading-relaxed break-words">{point.body}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

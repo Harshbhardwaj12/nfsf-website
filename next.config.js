@@ -6,6 +6,14 @@
 //   - data:/blob: for next/image and client-side jsPDF certificate rendering
 // 'unsafe-inline' on script/style is required by Next.js App Router (inline
 // hydration payload + Tailwind styles) without a nonce-injecting middleware.
+// Next.js dev mode (webpack eval source maps + React Fast Refresh) requires
+// 'unsafe-eval'; production builds do not. Adding it only in development keeps
+// the production CSP strict while allowing local `next dev` to hydrate.
+const scriptSrc =
+  process.env.NODE_ENV === "production"
+    ? "script-src 'self' 'unsafe-inline'"
+    : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -13,7 +21,7 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "object-src 'none'",
   "img-src 'self' data: blob:",
-  "script-src 'self' 'unsafe-inline'",
+  scriptSrc,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "connect-src 'self' https://*.supabase.co wss://*.supabase.co",

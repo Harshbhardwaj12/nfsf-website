@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -23,7 +24,7 @@ export default function DonationCTA() {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -34,70 +35,115 @@ export default function DonationCTA() {
   return (
     <section
       id="donate"
-      className="py-20 lg:py-28 bg-forest-gradient relative overflow-hidden"
+      className="py-20 lg:py-28 bg-forest-950 relative overflow-hidden"
       aria-labelledby="donate-heading"
     >
-      {/* Background decoration */}
+      {/* Textured leaf background — dense dark-green foliage, dimmed for legibility */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <Image
+          src="/images/leaves-texture.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-25"
+        />
+        {/* Forest gradient wash to deepen the texture and keep contrast high */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(7,26,13,0.94) 0%, rgba(12,31,20,0.88) 50%, rgba(20,83,45,0.82) 100%)",
+          }}
+        />
+        {/* Soft corner glows for depth */}
         <div
           className="absolute top-0 right-0 w-96 h-96 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
+          style={{ background: "radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
         />
         <div
           className="absolute bottom-0 left-0 w-72 h-72 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", transform: "translate(-30%, 30%)" }}
+          style={{ background: "radial-gradient(circle, rgba(217,119,6,0.07) 0%, transparent 70%)", transform: "translate(-30%, 30%)" }}
         />
       </div>
 
       <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Eyebrow header */}
+        <div className="max-w-2xl mb-12 lg:mb-14">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="h-px w-8 bg-forest-400/70" aria-hidden="true" />
+            <span className="text-forest-300 text-xs font-semibold uppercase tracking-widest">
+              Make Your Donation
+            </span>
+          </div>
+          <h2
+            id="donate-heading"
+            className="animate-on-scroll font-serif text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)", lineHeight: 1.12, letterSpacing: "-0.02em" }}
+          >
+            Sponsor a Tree for{" "}
+            <span className="italic text-forest-300">₹300</span>
+          </h2>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* Left — copy */}
+          {/* Left — image + copy */}
           <div>
-            <span className="inline-block text-forest-300 text-sm font-semibold uppercase tracking-widest mb-4">
-              Donate Now
-            </span>
-            <h2
-              id="donate-heading"
-              className="animate-on-scroll font-serif text-white mb-5"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)", lineHeight: 1.15 }}
-            >
-              Sponsor a Tree for{" "}
-              <span className="italic text-forest-300">₹300</span>
-            </h2>
-            <p className="animate-on-scroll text-white/70 text-lg leading-relaxed mb-8" style={{ transitionDelay: "100ms" }}>
-              Your contribution is more than a donation — it&rsquo;s a living gift to the planet.
-              Each tree will grow for 50+ years, sequester carbon, support biodiversity, and
-              feed a farmer&rsquo;s family. You receive a personalised digital certificate you can
-              share, frame, or gift.
+            {/* Emotional image panel */}
+            <div className="animate-on-scroll relative rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl mb-8 aspect-[16/10]">
+              <Image
+                src="/images/hands-sapling.jpg"
+                alt="Cupped hands holding rich soil and a young fern sprout, ready for planting"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+              {/* Forest-tinted overlay for the caption */}
+              <div
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(180deg, transparent 35%, rgba(7,26,13,0.78) 100%)" }}
+                aria-hidden="true"
+              />
+              <p className="absolute bottom-4 left-5 right-5 text-white/90 text-sm font-light leading-snug">
+                Every sapling is planted by hand and cared for as it takes root.
+              </p>
+            </div>
+
+            <p className="animate-on-scroll text-white/75 text-lg leading-relaxed mb-8" style={{ transitionDelay: "100ms" }}>
+              Your gift does more than plant a tree — it puts down living roots. Each native sapling
+              grows for 50+ years, drawing down carbon, reviving soil and biodiversity, and creating
+              honest work for farming families in Andhra Pradesh. In return, you receive a personalised
+              digital certificate to keep, share, or gift.
             </p>
 
             {/* What you get */}
             <ul className="animate-on-scroll space-y-3 mb-8" style={{ transitionDelay: "150ms" }} role="list">
               {[
-                "GPS-verified planting in Andhra Pradesh",
-                "Digital certificate within 7 days",
-                "Annual growth report via email",
-                "80G tax exemption receipt",
-                "Your name on our Donor Wall",
+                "GPS-verified planting on Andhra Pradesh farmland",
+                "Personalised digital certificate within 7 days",
+                "Annual growth update delivered to your inbox",
+                "80G tax-exemption receipt for every donation",
+                "Your name recorded on our public Donor Wall",
               ].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-white/80 text-sm">
-                  <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 flex-shrink-0 text-forest-400" aria-hidden="true">
-                    <path d="M3 8l4 4 6-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                <li key={item} className="flex items-center gap-3 text-white/85 text-sm">
+                  <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-forest-500/20 ring-1 ring-forest-400/30">
+                    <svg viewBox="0 0 16 16" fill="none" className="w-3 h-3 text-forest-300" aria-hidden="true">
+                      <path d="M3 8l4 4 6-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
 
-            <p className="animate-on-scroll text-white/40 text-xs" style={{ transitionDelay: "200ms" }}>
-              NGSF is registered under the Societies Registration Act, 1860. 80G & 12A exemptions apply.
+            <p className="animate-on-scroll text-white/45 text-xs leading-relaxed" style={{ transitionDelay: "200ms" }}>
+              NFSF is registered under the Societies Registration Act, 1860. 80G &amp; 12A exemptions apply.
             </p>
           </div>
 
           {/* Right — selector card */}
           <div className="animate-on-scroll" style={{ transitionDelay: "100ms" }}>
-            <div className="bg-white rounded-3xl p-7 lg:p-9 shadow-2xl">
+            <div className="bg-white rounded-3xl p-7 lg:p-9 shadow-2xl ring-1 ring-black/5">
               <p className="text-forest-800 font-semibold mb-5 text-sm uppercase tracking-wide">
                 Choose your impact
               </p>

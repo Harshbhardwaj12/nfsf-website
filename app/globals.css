@@ -74,13 +74,19 @@ body {
   100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
-/* ── Scroll-triggered fade-up ──────────────────────────── */
+/* ── Scroll-triggered fade-up ──────────────────────────────
+   Content is visible by DEFAULT. The hidden-then-reveal state is
+   only applied when JS is confirmed running (html.js-reveal), so the
+   page can never get stuck blank if scripts fail or are disabled. */
 .animate-on-scroll {
+  opacity: 1;
+}
+html.js-reveal .animate-on-scroll {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.animate-on-scroll.in-view {
+html.js-reveal .animate-on-scroll.in-view {
   opacity: 1;
   transform: translateY(0);
 }
