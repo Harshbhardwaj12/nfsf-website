@@ -5,8 +5,8 @@ import Image from "next/image";
 
 const STATS = [
   {
-    value: 12450,
-    suffix: "+",
+    value: 50,
+    suffix: "",
     label: "Trees Planted",
     sub: "On our dedicated farmland",
     icon: (
@@ -18,35 +18,10 @@ const STATS = [
     ),
   },
   {
-    value: 3,
-    suffix: " Years",
-    label: "Care Per Tree",
-    sub: "Tended by our farmers",
-    icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
-        <circle cx="16" cy="16" r="11" stroke="#15803D" strokeWidth="1.5" fill="#15803D" fillOpacity="0.1" />
-        <path d="M5 16h22M16 5c-4 4-6 7-6 11s2 7 6 11M16 5c4 4 6 7 6 11s-2 7-6 11" stroke="#15803D" strokeWidth="1.2" />
-      </svg>
-    ),
-  },
-  {
-    value: 2800,
-    suffix: "+",
-    label: "Generous Donors",
-    sub: "From every city",
-    icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
-        <circle cx="12" cy="11" r="4" stroke="#15803D" strokeWidth="1.5" fill="#15803D" fillOpacity="0.1" />
-        <circle cx="21" cy="11" r="4" stroke="#15803D" strokeWidth="1.5" fill="#15803D" fillOpacity="0.1" />
-        <path d="M4 26c0-4 3.6-7 8-7h8c4.4 0 8 3 8 7" stroke="#15803D" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    value: 124000,
+    value: 500,
     suffix: " kg",
     label: "CO₂ Offset",
-    sub: "Equivalent to 540 cars off road",
+    sub: "Absorbed every year as they grow",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
         <path d="M16 6v4M8 9l3 3M24 9l-3 3M5 20h3M24 20h3" stroke="#15803D" strokeWidth="1.5" strokeLinecap="round" />
@@ -244,7 +219,7 @@ export default function MissionStats() {
               {/* Floating credibility caption */}
               <div className="absolute -bottom-5 left-5 right-5 sm:left-8 sm:right-auto sm:max-w-xs rounded-2xl bg-white/95 backdrop-blur px-5 py-4 ring-1 ring-black/5 shadow-card">
                 <p className="text-xs font-semibold uppercase tracking-widest text-forest-600">
-                  Since 2019
+                  Our Promise
                 </p>
                 <p className="mt-1 text-sm text-gray-600 leading-snug">
                   Restoring degraded land hand-in-hand with the farmers who live on it.
@@ -267,12 +242,12 @@ export default function MissionStats() {
               className="font-serif tracking-tight text-forest-900"
               style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", lineHeight: 1.2 }}
             >
-              Measured in canopy, carbon and community
+              Measured in canopy and carbon
             </h3>
           </div>
 
           <div className="animate-on-scroll rounded-3xl border border-forest-100 bg-mist-50/60 shadow-card overflow-hidden">
-            <div className="grid grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2">
               {STATS.map((stat, i) => (
                 <StatItem key={stat.label} stat={stat} inView={inView} index={i} total={STATS.length} />
               ))}

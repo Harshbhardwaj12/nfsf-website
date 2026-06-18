@@ -27,10 +27,8 @@ const TESTIMONIALS = [
 ];
 
 const IMPACT_STATS = [
-  { label: "Donors making India greener", value: "2,800+" },
-  { label: "Trees survive beyond 5 years", value: "94%" },
-  { label: "Farmer families benefited", value: "340+" },
-  { label: "Average donor satisfaction", value: "4.9 / 5" },
+  { label: "Trees planted & cared for", value: "50" },
+  { label: "CO₂ absorbed every year", value: "500 kg" },
 ];
 
 export default function SocialProof() {
@@ -161,14 +159,14 @@ export default function SocialProof() {
                 ))}
               </div>
               <span className="text-white text-sm font-medium break-words">
-                Join <strong>2,800+</strong> donors making India greener
+  Be one of the first to make India greener
               </span>
             </div>
           </div>
         </div>
 
         {/* ── Trust stat band ────────────────────────────────────────── */}
-        <div className="animate-on-scroll grid grid-cols-2 lg:grid-cols-4 gap-px bg-forest-100 rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-card" style={{ transitionDelay: "200ms" }}>
+        <div className="animate-on-scroll grid grid-cols-2 gap-px bg-forest-100 rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-card" style={{ transitionDelay: "200ms" }}>
           {IMPACT_STATS.map((s) => (
             <div
               key={s.label}

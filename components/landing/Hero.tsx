@@ -187,7 +187,7 @@ export default function Hero() {
             {/* Trust signal strip */}
             <div className="flex flex-wrap gap-x-8 gap-y-4 items-center border-t border-white/15 pt-7">
               {[
-                { value: "12,450+", label: "Trees in the ground" },
+                { value: "50", label: "Trees in the ground" },
                 { value: "100%", label: "Cared for by us" },
                 { value: "100%", label: "Verified & certified" },
               ].map((stat) => (
