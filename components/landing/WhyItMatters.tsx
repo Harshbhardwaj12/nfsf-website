@@ -26,7 +26,7 @@ const POINTS = [
   },
   {
     title: "Farmer Livelihoods & Agroforestry",
-    body: "We don't just plant trees — our own farmers integrate them into our farmland. Pongamia for biodiesel, Tamarind for income, Neem for soil health. The farmers who tend your tree earn from it, creating a virtuous cycle of ecology and economy.",
+    body: "We don't just plant trees — our own farmers integrate them into our dedicated farmland. Pongamia for biodiesel, Tamarind for income, Neem for soil health. The farmers who tend your tree earn from it, creating a virtuous cycle of ecology and economy.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden="true">
         <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1" />
@@ -131,7 +131,7 @@ export default function WhyItMatters() {
                       Trees rooted in working farmland — not a number on a ledger.
                     </p>
                     <p className="text-white/75 text-xs mt-1 break-words">
-                      Tended on our own farmland
+                      Tended on our dedicated farmland
                     </p>
                   </figcaption>
                 </div>

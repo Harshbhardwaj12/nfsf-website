@@ -104,7 +104,7 @@ function ThankYouContent() {
             <SummaryRow icon="🌳" label="Trees Planted" value={`${donation.trees} ${donation.trees === 1 ? "tree" : "trees"}`} />
             <SummaryRow icon="💰" label="Amount Donated" value={`₹${donation.amount.toLocaleString("en-IN")}`} />
             <SummaryRow icon="📅" label="Date" value={dateStr} />
-            <SummaryRow icon="📍" label="Planting Location" value="Our own farmland" />
+            <SummaryRow icon="📍" label="Planting Location" value="Our dedicated farmland" />
             <SummaryRow icon="🆔" label="Certificate ID" value={donation.certificate_id} />
           </div>
 

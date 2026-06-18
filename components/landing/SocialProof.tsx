@@ -11,7 +11,7 @@ const TESTIMONIALS = [
     initials: "AM",
     color: "#15803D",
     quote:
-      "I sponsored 5 trees in memory of my grandfather — and did nothing else; they planted and care for them for me. The certificate arrived beautifully, and I've framed it at home.",
+      "I wanted to do something real for my grandfather's memory — not flowers. They planted trees on his behalf, handled everything, and the certificate arrived beautifully. I've had it framed at home.",
     trees: 5,
   },
   {

@@ -30,7 +30,7 @@ export default function Footer() {
             <p>
               &copy; {year} Nature and Farmer Sustainability Foundation. All rights reserved.
             </p>
-            <p>Reg. No. KA/2019/0049281 · 80G · 12A · FCRA</p>
+            <p>Reg. No. KA/2019/0049281</p>
             <a
               href="mailto:hello@nfsffoundation.org"
               className="inline-flex items-center min-h-[44px] text-forest-400 hover:text-forest-300 transition-colors"

@@ -8,7 +8,7 @@ const STATS = [
     value: 12450,
     suffix: "+",
     label: "Trees Planted",
-    sub: "On our own land",
+    sub: "On our dedicated farmland",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
         <path d="M16 4C9 4 4 10 4 16c0 4.5 2.5 8 6 10h12c3.5-2 6-5.5 6-10 0-6-5-12-12-12z" fill="#15803D" fillOpacity="0.15" stroke="#15803D" strokeWidth="1.5" />
@@ -199,7 +199,7 @@ export default function MissionStats() {
 
             <div className="mt-6 space-y-5 text-gray-600 leading-relaxed max-w-xl">
               <p className="text-lg">
-                Founded in 2019, the{" "}
+                The{" "}
                 <span className="font-medium text-forest-800">
                   Nature &amp; Farmers Sustainability Foundation
                 </span>{" "}

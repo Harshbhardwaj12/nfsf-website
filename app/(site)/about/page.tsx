@@ -4,7 +4,7 @@ import MissionStats from "@/components/landing/MissionStats";
 export const metadata: Metadata = {
   title: "About — Nature and Farmer Sustainability Foundation",
   description:
-    "Founded in 2019, NFSF works with our own farmers to plant and care for native trees on our own land, restoring degraded ground one tree at a time.",
+    "NFSF works with our own farmers to plant and care for native trees on our dedicated farmland, restoring degraded ground one tree at a time.",
 };
 
 export default function AboutPage() {

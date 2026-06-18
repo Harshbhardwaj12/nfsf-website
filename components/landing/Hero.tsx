@@ -143,12 +143,15 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-48 md:pt-32 md:pb-52 lg:pb-56">
           <div className="max-w-3xl">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-7 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-4 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-forest-400 animate-pulse" aria-hidden="true" />
               <span className="text-white/85 text-xs font-semibold tracking-widest uppercase">
                 We plant real trees — so you don't have to
               </span>
             </div>
+            <p className="text-white/55 text-sm mb-5 max-w-md">
+              Also a beautiful way to celebrate birthdays, Diwali, anniversaries, or remember someone special.
+            </p>
 
             {/* Headline */}
             <h1
@@ -164,7 +167,7 @@ export default function Hero() {
             <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-9 max-w-xl font-sans font-light">
               Too busy to plant a tree yourself? For just{" "}
               <strong className="text-white font-semibold">₹300</strong>, our farmers plant and care for
-              a native tree on our own land — no time, land, or effort needed from you. It draws down
+              a native tree on our dedicated farmland — no time, land, or effort needed from you. It draws down
               carbon for decades, and we send you a digital certificate for the tree that carries your name.
             </p>
 

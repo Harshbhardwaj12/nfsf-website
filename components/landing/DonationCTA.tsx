@@ -4,12 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const TIERS = [
-  { trees: 1,  price: 300,   label: "A Sapling",    sub: "One tree, one certificate" },
-  { trees: 5,  price: 1500,  label: "A Grove",      sub: "5 trees, ideal as a gift", popular: true },
-  { trees: 10, price: 3000,  label: "A Forest Patch", sub: "10 trees, family legacy" },
-];
-
 export default function DonationCTA() {
   const [selected, setSelected] = useState(1);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -29,8 +23,6 @@ export default function DonationCTA() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  const currentTier = TIERS.find((t) => t.trees === selected) ?? TIERS[0];
 
   return (
     <section
@@ -111,18 +103,17 @@ export default function DonationCTA() {
 
             <p className="animate-on-scroll text-white/75 text-lg leading-relaxed mb-8" style={{ transitionDelay: "100ms" }}>
               No time, land, or know-how needed — we do it all for you. For ₹300, our farmers plant and
-              care for a native tree on our own land. It grows for 50+ years, drawing down carbon and
+              care for a native tree on our dedicated farmland. It grows for 50+ years, drawing down carbon and
               reviving soil and biodiversity, so your gift leaves a lasting climate legacy. In return, you
-              receive a personalised digital certificate to keep, share, or gift.
+              receive a personalised digital certificate to keep, share, or gift to someone you love.
             </p>
 
             {/* What you get */}
             <ul className="animate-on-scroll space-y-3 mb-8" style={{ transitionDelay: "150ms" }} role="list">
               {[
-                "A real native tree planted & cared for on our own land",
+                "A real native tree planted & cared for on our dedicated farmland",
                 "Personalised digital certificate within 7 days",
                 "Annual growth update delivered to your inbox",
-                "80G tax-exemption receipt for every donation",
                 "Your name recorded on our public Donor Wall",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-white/85 text-sm">
@@ -137,7 +128,7 @@ export default function DonationCTA() {
             </ul>
 
             <p className="animate-on-scroll text-white/45 text-xs leading-relaxed" style={{ transitionDelay: "200ms" }}>
-              NFSF is registered under the Societies Registration Act, 1860. 80G &amp; 12A exemptions apply.
+              NFSF is registered under the Societies Registration Act, 1860.
             </p>
           </div>
 
@@ -148,42 +139,41 @@ export default function DonationCTA() {
                 Choose your impact
               </p>
 
-              <div className="grid grid-cols-3 gap-3 mb-7" role="radiogroup" aria-label="Select number of trees">
-                {TIERS.map((tier) => (
+              {/* Quantity stepper */}
+              <div className="mb-7">
+                <p className="text-forest-800 font-semibold mb-3 text-sm">How many trees?</p>
+                <div className="flex items-center gap-4">
                   <button
-                    key={tier.trees}
-                    role="radio"
-                    aria-checked={selected === tier.trees}
-                    onClick={() => setSelected(tier.trees)}
-                    className={`relative flex flex-col items-center text-center p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 ${
-                      selected === tier.trees
-                        ? "border-forest-700 bg-forest-50"
-                        : "border-gray-200 bg-white hover:border-forest-300"
-                    }`}
+                    type="button"
+                    onClick={() => setSelected(Math.max(1, selected - 1))}
+                    className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-400 hover:text-forest-700 transition-colors text-xl font-light focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-600"
+                    aria-label="Remove one tree"
                   >
-                    {tier.popular && (
-                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-earth-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
-                        Popular
-                      </span>
-                    )}
-                    <span className={`font-serif font-bold text-2xl mb-0.5 ${selected === tier.trees ? "text-forest-800" : "text-gray-700"}`}>
-                      {tier.trees}
-                    </span>
-                    <span className={`text-xs font-medium ${selected === tier.trees ? "text-forest-600" : "text-gray-400"}`}>
-                      {tier.trees === 1 ? "tree" : "trees"}
-                    </span>
+                    −
                   </button>
-                ))}
+                  <div className="flex-1 text-center">
+                    <span className="font-serif font-bold text-4xl text-forest-900">{selected}</span>
+                    <span className="text-gray-400 text-sm ml-2">{selected === 1 ? "tree" : "trees"}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelected(selected + 1)}
+                    className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-400 hover:text-forest-700 transition-colors text-xl font-light focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-600"
+                    aria-label="Add one tree"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
               {/* Price display */}
               <div className="bg-forest-50 rounded-2xl p-5 mb-6 flex items-center justify-between">
                 <div>
-                  <p className="text-forest-700 font-semibold text-sm mb-0.5">{currentTier.label}</p>
-                  <p className="text-gray-500 text-xs">{currentTier.sub}</p>
+                  <p className="text-forest-700 font-semibold text-sm mb-0.5">{selected === 1 ? "One Tree" : `${selected} Trees`}</p>
+                  <p className="text-gray-500 text-xs">{selected === 1 ? "One certificate, one living legacy" : `${selected} certificates · plant as many as you like`}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-serif font-bold text-3xl text-forest-800">₹{currentTier.price.toLocaleString("en-IN")}</p>
+                  <p className="font-serif font-bold text-3xl text-forest-800">₹{(selected * 300).toLocaleString("en-IN")}</p>
                   <p className="text-gray-400 text-xs">+ tax receipt</p>
                 </div>
               </div>
@@ -203,16 +193,16 @@ export default function DonationCTA() {
               <Link
                 href="/donate"
                 className="btn-primary w-full justify-center text-base py-4"
-                aria-label={`Donate ₹${currentTier.price.toLocaleString("en-IN")} to plant ${selected} ${selected === 1 ? "tree" : "trees"}`}
+                aria-label={`Donate ₹${(selected * 300).toLocaleString("en-IN")} to plant ${selected} ${selected === 1 ? "tree" : "trees"}`}
               >
-                Plant {selected} {selected === 1 ? "Tree" : "Trees"} — ₹{currentTier.price.toLocaleString("en-IN")}
+                Plant {selected} {selected === 1 ? "Tree" : "Trees"} — ₹{(selected * 300).toLocaleString("en-IN")}
                 <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
 
               <p className="text-center text-xs text-gray-400 mt-3">
-                Secure payment · 80G receipt included · Cancel anytime
+                Secure payment · Gifted with a personalised certificate
               </p>
             </div>
           </div>

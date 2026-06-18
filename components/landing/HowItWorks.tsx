@@ -52,7 +52,7 @@ const STEPS: Step[] = [
     accent: "forest",
     meta: [
       { label: "Secure online payment", icon: CheckIcon },
-      { label: "80G tax receipt", icon: ShieldIcon },
+      { label: "Certificate within 7 days", icon: ShieldIcon },
     ],
   },
   {
@@ -60,7 +60,7 @@ const STEPS: Step[] = [
     eyebrow: "On the ground",
     title: "We Plant",
     description:
-      "Our farmers plant a native sapling on our own land and care for it for years — we photograph it and send updates as it grows. You lift not a finger.",
+      "Our farmers plant a native sapling on our dedicated farmland and care for it for years — we photograph it and send updates as it grows. You lift not a finger.",
     image: "/images/planting-hand.jpg",
     alt: "A farmer's hand gently pressing a seedling into a nursery planting tray.",
     accent: "forest",
