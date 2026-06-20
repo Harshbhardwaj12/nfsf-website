@@ -29,14 +29,25 @@ function ThankYouContent() {
 
   useEffect(() => {
     if (!certId) { setLoading(false); return; }
+
+    // Mock mode has no database — fall back to the donation cached by /donate.
+    const fromCache = (): Donation | null => {
+      try {
+        const raw = localStorage.getItem(`nfsf_donation_${certId}`);
+        return raw ? (JSON.parse(raw) as Donation) : null;
+      } catch {
+        return null;
+      }
+    };
+
     fetch(`/api/donation/${encodeURIComponent(certId)}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        setDonation(d?.donation ?? null);
+        setDonation(d?.donation ?? fromCache());
         setLoading(false);
       })
       .catch(() => {
-        setDonation(null);
+        setDonation(fromCache());
         setLoading(false);
       });
   }, [certId]);

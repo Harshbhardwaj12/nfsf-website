@@ -64,6 +64,18 @@ export default function DonatePage() {
         return;
       }
 
+      // Mock mode has no database, so cache the donation for the thank-you page.
+      if (data.mock && data.donation) {
+        try {
+          localStorage.setItem(
+            `nfsf_donation_${data.certificate_id}`,
+            JSON.stringify(data.donation)
+          );
+        } catch {
+          /* localStorage unavailable — thank-you page will show a fallback */
+        }
+      }
+
       router.push(`/thank-you?id=${encodeURIComponent(data.certificate_id)}`);
     } catch {
       setSubmitError("Unable to reach the server. Please check your connection and try again.");

@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { randomBytes } from "crypto";
-import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
 import { validateDonation, PRICE_PER_TREE } from "@/lib/validation";
 import { rateLimit, clientIp } from "@/lib/rateLimit";
 
@@ -45,6 +45,24 @@ export async function POST(req: NextRequest) {
   const yyyymmdd = new Date().toISOString().slice(0, 10).replace(/-/g, "");
   const rand = randomBytes(5).toString("hex").toUpperCase(); // 10 hex chars
   const certificate_id = `NFSF-${yyyymmdd}-${rand}`;
+
+  // ── MOCK MODE ──────────────────────────────────────────────────────────────
+  // No Supabase service key configured → skip the DB write and return the full
+  // donation so the client can cache it for the thank-you page / certificate.
+  // This lets the donation flow be tested end-to-end without a database.
+  // Production sets the key, so this branch never runs there.
+  if (!isSupabaseConfigured()) {
+    const donation = {
+      id: certificate_id,
+      donor_name: name,
+      email,
+      trees,
+      amount,
+      certificate_id,
+      created_at: new Date().toISOString(),
+    };
+    return NextResponse.json({ certificate_id, donation, mock: true });
+  }
 
   const { error } = await getSupabaseAdmin()
     .from("donations")

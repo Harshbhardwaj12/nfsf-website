@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
 import { isValidCertId } from "@/lib/validation";
 import { rateLimit, clientIp } from "@/lib/rateLimit";
 
@@ -18,6 +18,12 @@ export async function GET(
   }
 
   if (!isValidCertId(params.id)) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
+  // Mock mode: no database to read from. The thank-you page falls back to its
+  // client-side cache, so a clean 404 here is expected (not an error).
+  if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Not found." }, { status: 404 });
   }
 

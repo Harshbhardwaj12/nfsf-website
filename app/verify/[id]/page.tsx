@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
 import { type Donation } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -43,11 +43,17 @@ export default function VerifyPage({ params }: Props) {
 }
 
 async function VerifyContent({ params }: Props) {
-  const { data } = await getSupabaseAdmin()
-    .from("donations")
-    .select("donor_name,trees,amount,certificate_id,created_at")
-    .eq("certificate_id", params.id)
-    .single<Donation>();
+  // Mock mode (no database configured) can't verify certificates server-side —
+  // there's nothing to look up — so treat every ID as "not found".
+  const data = isSupabaseConfigured()
+    ? (
+        await getSupabaseAdmin()
+          .from("donations")
+          .select("donor_name,trees,amount,certificate_id,created_at")
+          .eq("certificate_id", params.id)
+          .single<Donation>()
+      ).data
+    : null;
 
   if (!data) {
     return (
