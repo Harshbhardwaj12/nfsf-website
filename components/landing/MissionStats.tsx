@@ -207,8 +207,8 @@ export default function MissionStats() {
             <div className="relative">
               <div className="relative aspect-[4/5] sm:aspect-[3/2] lg:aspect-[4/5] w-full overflow-hidden rounded-3xl ring-1 ring-black/5 shadow-xl">
                 <Image
-                  src="/images/green-valley.jpg"
-                  alt="A sweeping green valley restored to life, with a lone figure dwarfed by the landscape"
+                  src="/images/india-farm-c.webp"
+                  alt="Farmers planting saplings together at a plantation site in India"
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
                   className="object-cover"

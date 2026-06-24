@@ -144,7 +144,7 @@ export default function WhyItMatters() {
         <div className="relative overflow-hidden">
           <div className="absolute inset-0" aria-hidden="true">
             <Image
-              src="/images/forest-sunset.jpg"
+              src="/images/india-farm-b.webp"
               alt=""
               fill
               loading="lazy"

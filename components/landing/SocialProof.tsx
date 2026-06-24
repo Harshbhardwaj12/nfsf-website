@@ -115,7 +115,7 @@ export default function SocialProof() {
         <div className="animate-on-scroll relative rounded-3xl overflow-hidden ring-1 ring-black/5 shadow-xl mb-14" style={{ transitionDelay: "150ms" }}>
           <div className="absolute inset-0" aria-hidden="true">
             <Image
-              src="/images/community.jpg"
+              src="/images/india-farm-d.webp"
               alt=""
               fill
               loading="lazy"
