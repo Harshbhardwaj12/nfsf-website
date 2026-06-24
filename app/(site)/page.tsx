@@ -1,11 +1,21 @@
 import Hero from "@/components/landing/Hero";
-import DonationCTA from "@/components/landing/DonationCTA";
+import TrustBar from "@/components/landing/TrustBar";
+import ProcessSteps from "@/components/landing/ProcessSteps";
+import ProjectCard from "@/components/landing/ProjectCard";
+import WhyNFSF from "@/components/landing/WhyNFSF";
+import ImageStrip from "@/components/landing/ImageStrip";
+import FAQ from "@/components/landing/FAQ";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <DonationCTA />
+      <TrustBar />
+      <ProcessSteps />
+      <ProjectCard />
+      <WhyNFSF />
+      <ImageStrip />
+      <FAQ />
     </>
   );
 }

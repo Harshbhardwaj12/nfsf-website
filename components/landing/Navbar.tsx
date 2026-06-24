@@ -15,20 +15,11 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLElement>(null);
 
-  // Home has a dark hero, so the navbar can start transparent there.
-  // Every other page has a light background, so force the solid style.
-  const isHome = pathname === "/";
-  const solid = scrolled || !isHome;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Clean white header on every page (Sankalptaru-style).
+  const solid = true;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -45,9 +36,7 @@ export default function Navbar() {
     <header
       ref={menuRef}
       role="banner"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        solid ? "navbar-scrolled" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm"
     >
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20"
@@ -55,16 +44,14 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center min-h-[44px]" aria-label="Nature and Farmer Sustainability Foundation — Home">
-          <span className="inline-flex items-center rounded-lg bg-white px-2 py-1 shadow-sm ring-1 ring-black/5">
-            <Image
-              src="/logo.png"
-              alt="Nature & Farmers Sustainability Foundation"
-              width={200}
-              height={60}
-              priority
-              className="h-10 w-auto sm:h-12"
-            />
-          </span>
+          <Image
+            src="/logo.png"
+            alt="Nature & Farmers Sustainability Foundation"
+            width={200}
+            height={60}
+            priority
+            className="h-9 w-auto sm:h-11"
+          />
         </Link>
 
         {/* Desktop nav links */}
@@ -90,7 +77,7 @@ export default function Navbar() {
         {/* CTA */}
         <div className="hidden md:block">
           <Link href="/donate" className="btn-primary text-sm py-2.5 px-5 min-h-[44px] inline-flex items-center">
-            Plant a Tree
+            Donate Now
             <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

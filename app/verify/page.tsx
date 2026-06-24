@@ -19,9 +19,18 @@ export default function VerifyLookupPage() {
   return (
     <div className="min-h-screen bg-mist-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto flex items-center justify-between gap-4">
           <Link href="/" className="inline-flex items-center" aria-label="Nature & Farmers Sustainability Foundation — Home">
             <Image src="/logo.png" alt="Nature & Farmers Sustainability Foundation" width={130} height={40} priority />
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 min-h-[44px] text-sm font-medium text-gray-600 hover:text-forest-700 transition-colors"
+          >
+            <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
+              <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Back to Home
           </Link>
         </div>
       </header>
