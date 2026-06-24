@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const IMAGES = [
-  { src: "/images/hands-sapling.jpg", alt: "Hands holding a young sapling ready to plant" },
-  { src: "/images/farmer-field.jpg", alt: "A farmer working in a green field" },
-  { src: "/images/forest-mist.jpg", alt: "A restored forest in morning mist" },
+  { src: "/images/farm-planting-2.webp", alt: "Farmers planting saplings together in a field in India" },
+  { src: "/images/farm-planting-3.webp", alt: "A farmer tending newly planted trees in Andhra Pradesh" },
+  { src: "/images/farm-planting-4.webp", alt: "A plantation site with young trees taking root" },
 ];
 
 export default function ImageStrip() {
