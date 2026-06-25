@@ -37,28 +37,28 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-forest-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-forest-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         {/* Logo / title */}
         <div className="text-center mb-8">
           <Image
             src="/logo.png"
             alt="Nature & Farmers Sustainability Foundation"
-            width={160}
-            height={48}
-            className="mx-auto"
+            width={170}
+            height={50}
+            className="mx-auto h-11 w-auto"
           />
-          <h1 className="mt-3 text-2xl font-serif font-bold text-white">NFSF Admin</h1>
-          <p className="mt-1 text-sm text-forest-300">Nature & Farmer Sustainability Foundation</p>
+          <h1 className="mt-4 text-2xl font-bold text-forest-800">Admin Sign In</h1>
+          <p className="mt-1 text-sm text-gray-500">Nature &amp; Farmers Sustainability Foundation</p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white/5 border border-white/10 rounded-2xl p-8 shadow-lg backdrop-blur"
+          className="bg-white border border-gray-100 rounded-2xl p-8 shadow-card"
         >
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-forest-200 mb-1.5">
+              <label className="block text-sm font-medium text-forest-800 mb-1.5">
                 Username
               </label>
               <input
@@ -67,13 +67,13 @@ export default function AdminLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-sm"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 text-forest-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-sm min-h-[44px]"
                 placeholder="admin"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-forest-200 mb-1.5">
+              <label className="block text-sm font-medium text-forest-800 mb-1.5">
                 Password
               </label>
               <input
@@ -82,13 +82,13 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-sm"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 text-forest-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-sm min-h-[44px]"
                 placeholder="••••••••"
               />
             </div>
 
             {error && (
-              <p className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2">
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
                 {error}
               </p>
             )}
@@ -96,7 +96,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-forest-600 hover:bg-forest-500 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors text-sm"
+              className="btn-primary w-full justify-center text-sm py-3 min-h-[44px] disabled:opacity-60"
             >
               {loading ? "Signing in…" : "Sign In"}
             </button>

@@ -1,8 +1,21 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Donation } from "@/lib/supabase";
+
+const ICONS: Record<string, ReactNode> = {
+  donations: (
+    <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+  ),
+  trees: (
+    <path d="M12 22V9m0 0c0-3 2-5 5-5 0 3-2 5-5 5Zm0 0c0-3-2-5-5-5 0 3 2 5 5 5Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  ),
+  amount: (
+    <path d="M7 5h9M7 9h9M7 9c5 0 5 7 0 7l5 4M9 5c4 0 4 4 0 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  ),
+};
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -57,18 +70,27 @@ export default function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top nav */}
-      <header className="bg-forest-900 text-white px-6 py-4 flex items-center justify-between shadow">
+      <header className="bg-white border-b border-gray-100 shadow-sm px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🌿</span>
-          <div>
-            <p className="font-serif font-bold leading-tight">NFSF Admin</p>
-            <p className="text-xs text-forest-300">Donation Dashboard</p>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="Nature & Farmers Sustainability Foundation"
+            width={150}
+            height={45}
+            priority
+            className="h-9 w-auto"
+          />
+          <span className="hidden sm:inline text-sm text-gray-400 border-l border-gray-200 pl-3">
+            Admin Dashboard
+          </span>
         </div>
         <button
           onClick={logout}
-          className="text-sm px-4 py-1.5 rounded-lg border border-white/20 hover:bg-white/10 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-medium min-h-[44px] px-4 rounded-lg border border-gray-200 text-gray-600 hover:border-forest-300 hover:text-forest-700 transition-colors"
         >
+          <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
+            <path d="M6 14H3V2h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           Logout
         </button>
       </header>
@@ -77,17 +99,17 @@ export default function AdminDashboardPage() {
         {/* Summary cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <SummaryCard
-            icon="🎗️"
+            icon={ICONS.donations}
             label="Total Donations"
             value={donations.length.toString()}
           />
           <SummaryCard
-            icon="🌳"
+            icon={ICONS.trees}
             label="Trees Planted"
             value={totalTrees.toLocaleString("en-IN")}
           />
           <SummaryCard
-            icon="💰"
+            icon={ICONS.amount}
             label="Amount Raised"
             value={`₹${totalAmount.toLocaleString("en-IN")}`}
           />
@@ -169,10 +191,14 @@ export default function AdminDashboardPage() {
   );
 }
 
-function SummaryCard({ icon, label, value }: { icon: string; label: string; value: string }) {
+function SummaryCard({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
   return (
     <div className="bg-white rounded-2xl shadow-card border border-gray-100 px-6 py-5 flex items-center gap-4">
-      <span className="text-3xl">{icon}</span>
+      <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-forest-50 text-forest-700 flex-shrink-0">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
+          {icon}
+        </svg>
+      </span>
       <div>
         <p className="text-xs text-gray-400 uppercase tracking-wide font-medium">{label}</p>
         <p className="text-2xl font-bold text-forest-800 mt-0.5">{value}</p>
