@@ -6,15 +6,16 @@ import { useState } from "react";
 
 const PRICE = 300;
 const PRESETS = [1, 5, 10];
-const THUMBS = [
-  "/images/project-1.webp",
-  "/images/project-2.webp",
-  "/images/project-3.webp",
-  "/images/project-4.webp",
+const GALLERY = [
+  "/images/india-farm-b.webp",
+  "/images/india-farm-c.webp",
+  "/images/india-farm-d.webp",
+  "/images/india-farm-a.webp",
 ];
 
 export default function ProjectCard() {
   const [trees, setTrees] = useState(1);
+  const [activeImg, setActiveImg] = useState(GALLERY[0]);
   const total = trees * PRICE;
 
   return (
@@ -23,21 +24,45 @@ export default function ProjectCard() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Left — imagery */}
           <div>
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-gray-100 shadow-card">
+            <a
+              href={activeImg}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-gray-100 shadow-card"
+              aria-label="Open full-size photo in a new tab"
+            >
               <Image
-                src="/images/project-main.webp"
+                src={activeImg}
                 alt="Tree plantation project in Andhra Pradesh"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
-            </div>
+              <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-forest-800 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
+                  <path d="M6 3H3v3M10 3h3v3M6 13H3v-3M10 13h3v-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                View full size
+              </span>
+            </a>
             <div className="grid grid-cols-4 gap-3 mt-3">
-              {THUMBS.map((src, i) => (
-                <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden ring-1 ring-gray-100">
-                  <Image src={src} alt="" fill sizes="20vw" className="object-cover" />
-                </div>
-              ))}
+              {GALLERY.map((src, i) => {
+                const active = src === activeImg;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActiveImg(src)}
+                    className={`relative aspect-[4/3] rounded-lg overflow-hidden ring-2 transition-all ${
+                      active ? "ring-forest-600" : "ring-gray-100 hover:ring-forest-300"
+                    }`}
+                    aria-label={`Show photo ${i + 1}`}
+                    aria-pressed={active}
+                  >
+                    <Image src={src} alt="" fill sizes="20vw" className="object-cover" />
+                  </button>
+                );
+              })}
             </div>
           </div>
 
