@@ -8,6 +8,7 @@ import { type Donation } from "@/lib/supabase";
 import { generateCertificate } from "@/lib/certificate";
 import { readGift, type GiftDetails } from "@/lib/gift";
 import CertificatePreview from "@/components/CertificatePreview";
+import { CERT_DESIGNS, DEFAULT_CERT_DESIGN, type CertDesignId } from "@/lib/certDesigns";
 
 export default function ThankYouPage() {
   return (
@@ -27,6 +28,7 @@ function ThankYouContent() {
 
   const [donation, setDonation] = useState<Donation | null>(null);
   const [gift, setGift] = useState<GiftDetails | null>(null);
+  const [design, setDesign] = useState<CertDesignId>(DEFAULT_CERT_DESIGN);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
 
@@ -61,7 +63,7 @@ function ThankYouContent() {
     if (!donation) return;
     setDownloading(true);
     try {
-      await generateCertificate(donation, gift);
+      await generateCertificate(donation, gift, design);
     } finally {
       setDownloading(false);
     }
@@ -139,7 +141,30 @@ function ThankYouContent() {
 
           <div className="mb-6">
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">Your certificate</p>
-            <CertificatePreview donation={donation} gift={gift} />
+            <CertificatePreview donation={donation} gift={gift} design={design} />
+
+            {/* Design picker */}
+            <div className="mt-4">
+              <p className="text-xs text-gray-500 mb-2 text-left">Choose a design</p>
+              <div className="grid grid-cols-3 gap-2">
+                {CERT_DESIGNS.map((d) => (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => setDesign(d.id)}
+                    aria-pressed={design === d.id}
+                    className={`rounded-xl border-2 px-3 py-2.5 text-left transition-colors ${
+                      design === d.id
+                        ? "border-forest-700 bg-forest-50"
+                        : "border-gray-200 hover:border-forest-300"
+                    }`}
+                  >
+                    <span className="block text-[13px] font-semibold text-forest-800">{d.name}</span>
+                    <span className="block text-[11px] text-gray-500 leading-snug mt-0.5">{d.desc}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           <button

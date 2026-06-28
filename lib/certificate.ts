@@ -1,6 +1,7 @@
 import type { jsPDF } from "jspdf";
 import type { Donation } from "@/lib/supabase";
 import type { GiftDetails } from "@/lib/gift";
+import { type CertDesignId, CERT_DESIGNS, DEFAULT_CERT_DESIGN } from "@/lib/certDesigns";
 import { NOTO_SANS_REGULAR_B64, NOTO_SANS_BOLD_B64 } from "@/lib/certificateFont";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -171,7 +172,8 @@ function seal(doc: jsPDF, cx: number, cy: number) {
  */
 export async function generateCertificate(
   donation: Donation,
-  gift?: GiftDetails | null
+  gift?: GiftDetails | null,
+  design: CertDesignId = DEFAULT_CERT_DESIGN
 ): Promise<void> {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
@@ -201,32 +203,71 @@ export async function generateCertificate(
   doc.setLineWidth(0.4);
   doc.rect(12, 12, W - 24, H - 24, "S");
 
-  // ── Header band ──────────────────────────────────────────────────────────────
-  set.fill(C.forestDark);
-  doc.rect(12, 12, W - 24, 26, "F");
+  // ── Header band (varies by chosen design) ────────────────────────────────────
+  const isIvory = design === "ivory";
+  const isPhoto = design === "photo";
 
-  // Brand logo on a white plate (falls back to a wordmark if it can't be loaded).
+  if (isPhoto) {
+    // Plantation photo header with a dark wash for legibility.
+    const photoUrl = CERT_DESIGNS.find((d) => d.id === "photo")?.photo;
+    const photoData = photoUrl ? await loadImageData(photoUrl) : null;
+    if (photoData) {
+      doc.addImage(photoData, "JPEG", 12, 12, W - 24, 26);
+      try {
+        // @ts-expect-error GState exists at runtime in jsPDF
+        doc.setGState(new doc.GState({ opacity: 0.55 }));
+      } catch {
+        /* older jsPDF — fall back to opaque band below */
+      }
+      set.fill(C.forestDark);
+      doc.rect(12, 12, W - 24, 26, "F");
+      try {
+        // @ts-expect-error GState exists at runtime in jsPDF
+        doc.setGState(new doc.GState({ opacity: 1 }));
+      } catch {
+        /* no-op */
+      }
+    } else {
+      set.fill(C.forestDark);
+      doc.rect(12, 12, W - 24, 26, "F");
+    }
+  } else if (!isIvory) {
+    set.fill(C.forestDark);
+    doc.rect(12, 12, W - 24, 26, "F");
+  }
+
+  // Brand logo. On the dark/photo headers it sits on a white plate; on ivory it
+  // rests directly on the paper with a thin rule beneath.
   const logoData = await loadImageData("/logo.png");
   if (logoData) {
-    const lh = 13.5;
+    const lh = isIvory ? 12 : 13.5;
     const lw = lh * LOGO_RATIO;
-    set.fill(C.white);
-    doc.roundedRect(CX - lw / 2 - 2.5, 13.6, lw + 5, lh + 2.4, 2, 2, "F");
-    doc.addImage(logoData, "PNG", CX - lw / 2, 14.8, lw, lh);
+    const ly = isIvory ? 15 : 14.8;
+    if (!isIvory) {
+      set.fill(C.white);
+      doc.roundedRect(CX - lw / 2 - 2.5, ly - 1.2, lw + 5, lh + 2.4, 2, 2, "F");
+    }
+    doc.addImage(logoData, "PNG", CX - lw / 2, ly, lw, lh);
   } else {
     doc.setFont("times", "bold");
     doc.setFontSize(17);
-    set.text(C.white);
-    doc.text("Nature and Farmer Sustainability Foundation", CX, 24, { align: "center" });
+    set.text(isIvory ? C.forestDeep : C.white);
+    doc.text("Nature and Farmer Sustainability Foundation", CX, isIvory ? 22 : 24, { align: "center" });
+  }
+
+  if (isIvory) {
+    set.stroke(C.sage);
+    doc.setLineWidth(0.4);
+    doc.line(CX - 28, 31, CX + 28, 31);
   }
 
   doc.setFont("NotoSans", "normal");
   doc.setFontSize(8.5);
-  set.text(C.sageLight);
+  set.text(isIvory ? C.muted : C.sageLight);
   doc.text(
     "Registered under the Societies Registration Act, 1860",
     CX,
-    34.5,
+    isIvory ? 36 : 34.5,
     { align: "center" }
   );
 
