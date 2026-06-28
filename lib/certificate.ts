@@ -1,5 +1,6 @@
 import type { jsPDF } from "jspdf";
 import type { Donation } from "@/lib/supabase";
+import type { GiftDetails } from "@/lib/gift";
 import { NOTO_SANS_REGULAR_B64, NOTO_SANS_BOLD_B64 } from "@/lib/certificateFont";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -168,7 +169,10 @@ function seal(doc: jsPDF, cx: number, cy: number) {
  * Build and trigger download of the donor's plantation certificate.
  * Filename: NFSF-Certificate-<certificate_id>.pdf
  */
-export async function generateCertificate(donation: Donation): Promise<void> {
+export async function generateCertificate(
+  donation: Donation,
+  gift?: GiftDetails | null
+): Promise<void> {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
   registerFonts(doc);
@@ -281,16 +285,30 @@ export async function generateCertificate(donation: Donation): Promise<void> {
     { align: "center" }
   );
 
-  // ── Inspiring line ───────────────────────────────────────────────────────────
+  // ── Gift dedication (optional) ───────────────────────────────────────────────
+  if (gift?.isGift && gift.recipientName) {
+    const occ = gift.occasion ? ` · ${gift.occasion}` : "";
+    doc.setFont("NotoSans", "bold");
+    doc.setFontSize(10);
+    set.text(C.amber);
+    doc.text(`A LIVING GIFT FOR ${gift.recipientName.toUpperCase()}${occ.toUpperCase()}`, CX, 117, {
+      align: "center",
+      charSpace: 0.3,
+    });
+  }
+
+  // ── Inspiring line / personal message ────────────────────────────────────────
+  const dedication =
+    gift?.isGift && gift.message
+      ? `“${gift.message}”`
+      : "“Your generosity is growing roots that will outlast us all.”";
   doc.setFont("times", "italic");
-  doc.setFontSize(13);
+  doc.setFontSize(gift?.isGift && gift.message ? 12 : 13);
   set.text(C.forestDeep);
-  doc.text(
-    "“Your generosity is growing roots that will outlast us all.”",
-    CX,
-    123,
-    { align: "center" }
-  );
+  const dedLines = doc.splitTextToSize(dedication, W - 80) as string[];
+  doc.text(dedLines.slice(0, 2), CX, gift?.isGift && gift.recipientName ? 124 : 123, {
+    align: "center",
+  });
 
   // ── Meta row (Date · Location · Trees · Contribution) ────────────────────────
   const meta: Array<[string, string]> = [
@@ -302,7 +320,9 @@ export async function generateCertificate(donation: Donation): Promise<void> {
         year: "numeric",
       }),
     ],
-    ["PLANTED ON", "Our own farmland"],
+    gift?.isGift && gift.treeName
+      ? ["TREE NAMED", gift.treeName]
+      : ["PLANTED ON", "Our dedicated farmland"],
     ["TREES PLANTED", `${donation.trees}`],
     ["CONTRIBUTION", inr(donation.amount)],
   ];
@@ -333,12 +353,12 @@ export async function generateCertificate(donation: Donation): Promise<void> {
     doc.text(value, cx, metaTop + 12, { align: "center" });
   });
 
-  // ── 80G note ──────────────────────────────────────────────────────────────────
+  // ── Assurance note ────────────────────────────────────────────────────────────
   doc.setFont("NotoSans", "normal");
   doc.setFontSize(8.5);
   set.text(C.muted);
   doc.text(
-    "This donation is eligible for 80G tax deduction under the Income Tax Act, 1961.",
+    "Planted and cared for by our farmers on our dedicated farmland.",
     CX,
     158,
     { align: "center" }

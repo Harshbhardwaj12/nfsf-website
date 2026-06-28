@@ -17,7 +17,7 @@ const STEPS = [
   {
     n: "4",
     title: "Your tree is planted",
-    text: "Local farmers plant and care for your tree in Andhra Pradesh.",
+    text: "Our farmers plant and care for your tree on our dedicated farmland.",
   },
 ];
 

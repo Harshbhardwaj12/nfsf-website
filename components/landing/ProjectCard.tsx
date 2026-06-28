@@ -33,7 +33,7 @@ export default function ProjectCard() {
             >
               <Image
                 src={activeImg}
-                alt="Tree plantation project in Andhra Pradesh"
+                alt="Tree plantation project on our dedicated farmland"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -73,7 +73,7 @@ export default function ProjectCard() {
                 <path d="M10 18s6-5.3 6-10A6 6 0 1 0 4 8c0 4.7 6 10 6 10Z" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="10" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
               </svg>
-              Andhra Pradesh, India
+              Planted & cared for, for you
             </span>
 
             <h2
@@ -81,13 +81,13 @@ export default function ProjectCard() {
               className="text-forest-800 font-bold mb-4"
               style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.5rem)", lineHeight: 1.15 }}
             >
-              Plant Trees in Andhra Pradesh
+              Plant a Tree — We Do the Rest
             </h2>
 
             <p className="text-gray-600 leading-relaxed mb-7">
-              Each tree you plant supports a farmer family and restores degraded land in Andhra Pradesh.
-              Trees are planted and cared for by local farming communities, giving them income while
-              rebuilding India&apos;s green cover.
+              Each tree you sponsor is planted and cared for by our farmers on our dedicated farmland —
+              no time, land, or effort needed from you. It supports farmer families while drawing down
+              carbon and rebuilding India&apos;s green cover for decades.
             </p>
 
             {/* Quantity selector */}
@@ -157,7 +157,7 @@ export default function ProjectCard() {
             </div>
 
             <p className="text-gray-500 text-xs">
-              80G tax exemption available · Verified digital certificate included
+              Verified digital certificate included · Personalise it as a gift
             </p>
           </div>
         </div>

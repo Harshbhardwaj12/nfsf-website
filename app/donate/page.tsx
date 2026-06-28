@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { GIFT_OCCASIONS, GIFT_LIMITS, stashGift, type GiftDetails } from "@/lib/gift";
 
 const PRICE_PER_TREE = 300;
 
@@ -13,6 +14,14 @@ interface FormData {
   trees: number;
 }
 
+const EMPTY_GIFT: GiftDetails = {
+  isGift: false,
+  recipientName: "",
+  occasion: "",
+  message: "",
+  treeName: "",
+};
+
 export default function DonatePage() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
@@ -21,6 +30,7 @@ export default function DonatePage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState(""); // anti-bot: real users never fill this
+  const [gift, setGift] = useState<GiftDetails>(EMPTY_GIFT);
 
   const total = form.trees * PRICE_PER_TREE;
 
@@ -74,6 +84,18 @@ export default function DonatePage() {
         } catch {
           /* localStorage unavailable — thank-you page will show a fallback */
         }
+      }
+
+      // Gift details live only on the client — carry them to the thank-you page
+      // and into the certificate PDF (never stored server-side).
+      if (gift.isGift && gift.recipientName?.trim()) {
+        stashGift(data.certificate_id, {
+          isGift: true,
+          recipientName: gift.recipientName?.trim(),
+          occasion: gift.occasion?.trim() || undefined,
+          message: gift.message?.trim() || undefined,
+          treeName: gift.treeName?.trim() || undefined,
+        });
       }
 
       router.push(`/thank-you?id=${encodeURIComponent(data.certificate_id)}`);
@@ -197,6 +219,102 @@ export default function DonatePage() {
                   </div>
                 </div>
 
+                {/* ── Gift section ── */}
+                <div className="mt-6 rounded-xl border border-gray-200 overflow-hidden">
+                  <label className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer select-none">
+                    <span className="flex items-center gap-2.5">
+                      <span className="text-lg" aria-hidden="true">🎁</span>
+                      <span className="text-sm font-medium text-forest-800">
+                        This is a gift for someone
+                      </span>
+                    </span>
+                    <span className="relative inline-flex">
+                      <input
+                        type="checkbox"
+                        className="peer sr-only"
+                        checked={gift.isGift}
+                        onChange={(e) => setGift({ ...gift, isGift: e.target.checked })}
+                      />
+                      <span className="w-10 h-6 rounded-full bg-gray-200 peer-checked:bg-forest-600 transition-colors" />
+                      <span className="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4" />
+                    </span>
+                  </label>
+
+                  {gift.isGift && (
+                    <div className="px-4 pb-4 pt-1 space-y-4 border-t border-gray-100 bg-mist-50/40">
+                      <p className="text-xs text-gray-500 pt-3">
+                        We&apos;ll personalise the certificate with these details. They stay on your
+                        certificate only — we don&apos;t store or email the recipient.
+                      </p>
+
+                      <div>
+                        <label className="block text-sm font-medium text-forest-800 mb-1.5" htmlFor="recipientName">
+                          Recipient&apos;s Name
+                        </label>
+                        <input
+                          id="recipientName"
+                          type="text"
+                          maxLength={GIFT_LIMITS.recipientName}
+                          value={gift.recipientName}
+                          onChange={(e) => setGift({ ...gift, recipientName: e.target.value })}
+                          placeholder="Who is this tree for?"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-forest-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-forest-600 transition"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-forest-800 mb-1.5" htmlFor="occasion">
+                          Occasion <span className="text-gray-400 font-normal">(optional)</span>
+                        </label>
+                        <select
+                          id="occasion"
+                          value={gift.occasion}
+                          onChange={(e) => setGift({ ...gift, occasion: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-forest-900 focus:outline-none focus:ring-2 focus:ring-forest-600 transition bg-white"
+                        >
+                          <option value="">Select an occasion…</option>
+                          {GIFT_OCCASIONS.map((o) => (
+                            <option key={o} value={o}>{o}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-forest-800 mb-1.5" htmlFor="treeName">
+                          Name the Tree <span className="text-gray-400 font-normal">(optional)</span>
+                        </label>
+                        <input
+                          id="treeName"
+                          type="text"
+                          maxLength={GIFT_LIMITS.treeName}
+                          value={gift.treeName}
+                          onChange={(e) => setGift({ ...gift, treeName: e.target.value })}
+                          placeholder="e.g. Dadu's Oak"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-forest-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-forest-600 transition"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-forest-800 mb-1.5" htmlFor="message">
+                          Personal Message <span className="text-gray-400 font-normal">(optional)</span>
+                        </label>
+                        <textarea
+                          id="message"
+                          rows={2}
+                          maxLength={GIFT_LIMITS.message}
+                          value={gift.message}
+                          onChange={(e) => setGift({ ...gift, message: e.target.value })}
+                          placeholder="A short note to print on the certificate"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-forest-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-forest-600 transition resize-none"
+                        />
+                        <p className="text-right text-xs text-gray-400 mt-1">
+                          {gift.message?.length ?? 0}/{GIFT_LIMITS.message}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 {/* Live total */}
                 <div className="mt-6 bg-forest-50 rounded-xl px-5 py-4 flex items-center justify-between">
                   <span className="text-forest-700 text-sm font-medium">
@@ -233,6 +351,19 @@ export default function DonatePage() {
                 <div className="bg-forest-50 rounded-xl p-5 space-y-3 mb-7 text-sm">
                   <Row label="Name" value={form.name} />
                   <Row label="Email" value={form.email} />
+                  {gift.isGift && gift.recipientName?.trim() && (
+                    <>
+                      <Row label="Gift for" value={gift.recipientName.trim()} />
+                      {gift.occasion && <Row label="Occasion" value={gift.occasion} />}
+                      {gift.treeName?.trim() && <Row label="Tree named" value={gift.treeName.trim()} />}
+                      {gift.message?.trim() && (
+                        <div className="flex justify-between gap-4">
+                          <span className="text-gray-500 flex-shrink-0">Message</span>
+                          <span className="text-forest-800 font-medium text-right italic">&ldquo;{gift.message.trim()}&rdquo;</span>
+                        </div>
+                      )}
+                    </>
+                  )}
                   <div className="border-t border-forest-100 pt-3 flex justify-between items-center">
                     <span className="text-forest-700 font-medium">
                       🌳 {form.trees} {form.trees === 1 ? "tree" : "trees"}

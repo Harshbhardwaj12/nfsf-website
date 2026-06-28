@@ -47,9 +47,9 @@ export default function Hero() {
 
           {/* Subtext */}
           <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-9 max-w-xl font-light">
-            Donate <strong className="font-semibold text-white">₹300</strong> and plant a tree in Andhra
-            Pradesh. Get a verified digital certificate. Support local farming families restoring India&apos;s
-            green cover.
+            Donate <strong className="font-semibold text-white">₹300</strong> and our farmers plant and care
+            for a native tree for you. Get a verified digital certificate, keep it or gift it, and support
+            farming families restoring India&apos;s green cover.
           </p>
 
           {/* CTAs */}

@@ -76,7 +76,7 @@ const STEPS: Step[] = [
     description:
       "Within 7 days you receive a personalised digital certificate carrying your tree's species and planting date — a lasting, shareable record of the forest you helped grow, and an easy way to gift impact to someone you love.",
     image: "/images/india-farm-a.webp",
-    alt: "Young trees taking root at a plantation site in Andhra Pradesh.",
+    alt: "Young trees taking root at a plantation site on our dedicated farmland.",
     accent: "earth",
     meta: [
       { label: "Delivered within 7 days", icon: ClockIcon },

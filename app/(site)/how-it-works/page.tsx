@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import HowItWorks from "@/components/landing/HowItWorks";
+import TreeSpecies from "@/components/landing/TreeSpecies";
+import FAQ from "@/components/landing/FAQ";
 
 export const metadata: Metadata = {
   title: "How It Works — Nature and Farmer Sustainability Foundation",
@@ -11,6 +13,8 @@ export default function HowItWorksPage() {
   return (
     <div className="pt-16 md:pt-20">
       <HowItWorks />
+      <TreeSpecies />
+      <FAQ />
     </div>
   );
 }

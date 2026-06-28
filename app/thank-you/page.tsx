@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { type Donation } from "@/lib/supabase";
 import { generateCertificate } from "@/lib/certificate";
+import { readGift, type GiftDetails } from "@/lib/gift";
+import CertificatePreview from "@/components/CertificatePreview";
 
 export default function ThankYouPage() {
   return (
@@ -24,11 +26,14 @@ function ThankYouContent() {
   const certId = searchParams.get("id");
 
   const [donation, setDonation] = useState<Donation | null>(null);
+  const [gift, setGift] = useState<GiftDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     if (!certId) { setLoading(false); return; }
+
+    setGift(readGift(certId));
 
     // Mock mode has no database — fall back to the donation cached by /donate.
     const fromCache = (): Donation | null => {
@@ -56,7 +61,7 @@ function ThankYouContent() {
     if (!donation) return;
     setDownloading(true);
     try {
-      await generateCertificate(donation);
+      await generateCertificate(donation, gift);
     } finally {
       setDownloading(false);
     }
@@ -108,7 +113,9 @@ function ThankYouContent() {
             Thank you, {donation.donor_name.split(" ")[0]}!
           </h1>
           <p className="text-gray-500 mb-8">
-            Your donation has been received. You&apos;re making a real difference.
+            {gift?.isGift && gift.recipientName
+              ? `Your living gift for ${gift.recipientName} is on its way to taking root.`
+              : "Your donation has been received. You're making a real difference."}
           </p>
 
           <div className="bg-white rounded-2xl shadow-card p-7 mb-6 text-left space-y-4">
@@ -116,7 +123,23 @@ function ThankYouContent() {
             <SummaryRow icon="💰" label="Amount Donated" value={`₹${donation.amount.toLocaleString("en-IN")}`} />
             <SummaryRow icon="📅" label="Date" value={dateStr} />
             <SummaryRow icon="📍" label="Planting Location" value="Our dedicated farmland" />
-            <SummaryRow icon="🆔" label="Certificate ID" value={donation.certificate_id} />
+            {gift?.isGift && gift.recipientName && (
+              <>
+                <div className="border-t border-gray-100 pt-4">
+                  <SummaryRow icon="🎁" label="A gift for" value={gift.recipientName} />
+                </div>
+                {gift.occasion && <SummaryRow icon="🎉" label="Occasion" value={gift.occasion} />}
+                {gift.treeName && <SummaryRow icon="🌱" label="Tree named" value={gift.treeName} />}
+              </>
+            )}
+            <div className={gift?.isGift && gift.recipientName ? "border-t border-gray-100 pt-4" : ""}>
+              <SummaryRow icon="🆔" label="Certificate ID" value={donation.certificate_id} />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">Your certificate</p>
+            <CertificatePreview donation={donation} gift={gift} />
           </div>
 
           <button

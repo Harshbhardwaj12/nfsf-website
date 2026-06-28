@@ -23,7 +23,7 @@ export default function Footer() {
               Restoring India&apos;s green cover, one tree at a time.
             </p>
             <p className="text-gray-400 text-sm mt-3">
-              Bangalore, India ·{" "}
+              India ·{" "}
               <a href="mailto:hello@nfsffoundation.org" className="text-forest-700 hover:text-forest-800 transition-colors">
                 hello@nfsffoundation.org
               </a>

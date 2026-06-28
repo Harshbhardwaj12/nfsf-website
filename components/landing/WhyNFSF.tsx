@@ -8,7 +8,7 @@ const COLS = [
   },
   {
     title: "For the Farmers",
-    text: "Provide steady income to marginal farmer families in Andhra Pradesh who plant and care for the trees.",
+    text: "Provide steady income to marginal farmer families who plant and care for the trees on our dedicated farmland.",
     icon: (
       <>
         <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.6" />
@@ -18,7 +18,7 @@ const COLS = [
   },
   {
     title: "For You",
-    text: "Receive a verified digital certificate and an 80G tax deduction on your donation.",
+    text: "Receive a verified digital certificate you can keep, share, or gift to someone you love.",
     icon: (
       <>
         <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />

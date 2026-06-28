@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const IMAGES = [
   { src: "/images/farm-planting-2.webp", alt: "Farmers planting saplings together in a field in India" },
-  { src: "/images/farm-planting-3.webp", alt: "A farmer tending newly planted trees in Andhra Pradesh" },
+  { src: "/images/farm-planting-3.webp", alt: "A farmer tending newly planted trees on our dedicated farmland" },
   { src: "/images/farm-planting-4.webp", alt: "A plantation site with young trees taking root" },
 ];
 
