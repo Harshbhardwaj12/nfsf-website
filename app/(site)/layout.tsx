@@ -1,6 +1,7 @@
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import MobileDonateBar from "@/components/landing/MobileDonateBar";
+import FloatingDonate from "@/components/landing/FloatingDonate";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       {/* Extra bottom padding so the fixed mobile donate bar never covers content */}
       <main className="pb-24 md:pb-0">{children}</main>
       <Footer />
+      <FloatingDonate />
       <MobileDonateBar />
     </>
   );

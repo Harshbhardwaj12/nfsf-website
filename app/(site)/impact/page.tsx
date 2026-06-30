@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ImpactPage() {
   return (
-    <div className="pt-16 md:pt-20">
+    <div className="pt-20 md:pt-24">
       <WhyItMatters />
       <SocialProof />
     </div>

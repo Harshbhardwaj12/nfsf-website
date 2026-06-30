@@ -11,9 +11,8 @@ const STATS = [
     sub: "On our dedicated farmland",
     icon: (
       <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7" aria-hidden="true">
-        <path d="M16 4C9 4 4 10 4 16c0 4.5 2.5 8 6 10h12c3.5-2 6-5.5 6-10 0-6-5-12-12-12z" fill="#15803D" fillOpacity="0.15" stroke="#15803D" strokeWidth="1.5" />
-        <rect x="14.5" y="22" width="3" height="7" rx="1.5" fill="#15803D" />
-        <path d="M11 14c1.5-2 4-3 5-4" stroke="#15803D" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M10.67 25.33a5.33 5.33 0 0 1-2.99-9.76A4.67 4.67 0 0 1 12 8.04V8a4 4 0 1 1 8 0v.05a4.67 4.67 0 0 1 4.32 7.53A5.33 5.33 0 0 1 21.33 25.33z" fill="#15803D" fillOpacity="0.15" stroke="#15803D" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M16 25.33V30" stroke="#15803D" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },

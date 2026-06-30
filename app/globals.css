@@ -114,9 +114,9 @@ html.js-reveal .animate-on-scroll.in-view {
   background: var(--color-forest-700);
   color: #fff;
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9375rem;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   border: none;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
@@ -138,9 +138,9 @@ html.js-reveal .animate-on-scroll.in-view {
   background: transparent;
   color: var(--color-forest-700);
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9375rem;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   border: 2px solid var(--color-forest-700);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
@@ -160,9 +160,9 @@ html.js-reveal .animate-on-scroll.in-view {
   background: transparent;
   color: #fff;
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9375rem;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   border: 2px solid rgba(255,255,255,0.5);
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
@@ -187,6 +187,53 @@ html.js-reveal .animate-on-scroll.in-view {
   outline: 2px solid var(--color-forest-600);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* ── Campaign monsoon banner ───────────────────────────── */
+.campaign-banner {
+  background: linear-gradient(120deg, #071A0D 0%, #0C3B22 55%, #14532D 100%);
+}
+.campaign-rain {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 200% 200%;
+  animation: rainShift 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes rainShift {
+  0%   { background-position: 0 0; }
+  100% { background-position: -28px 60px; }
+}
+
+/* ── Shining CTA (navbar Donate Now) ───────────────────── */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px !important;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-20deg);
+  animation: btnShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btnShine {
+  0%   { left: -150%; }
+  55%  { left: 160%; }
+  100% { left: 160%; }
 }
 
 /* ── Reduced motion ────────────────────────────────────── */

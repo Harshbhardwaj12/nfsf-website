@@ -24,8 +24,8 @@ const STEPS = [
 export default function ProcessSteps() {
   return (
     <section id="how-it-works" className="bg-forest-50" aria-labelledby="process-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
           <span className="text-forest-600 text-sm font-semibold tracking-widest uppercase">
             Simple &amp; Transparent
           </span>
@@ -38,10 +38,10 @@ export default function ProcessSteps() {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {STEPS.map((step) => (
             <div key={step.n} className="text-center">
-              <div className="mx-auto mb-5 flex items-center justify-center w-14 h-14 rounded-full bg-forest-700 text-white text-xl font-bold">
+              <div className="mx-auto mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-forest-700 text-white text-lg font-bold">
                 {step.n}
               </div>
               <h3 className="text-forest-800 font-semibold text-lg mb-2">{step.title}</h3>

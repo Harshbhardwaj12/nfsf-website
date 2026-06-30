@@ -6,11 +6,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { label: "Home",               href: "/" },
-  { label: "About",              href: "/about" },
-  { label: "How It Works",       href: "/how-it-works" },
-  { label: "Impact",             href: "/impact" },
-  { label: "Verify Certificate", href: "/verify" },
+  { label: "Home",         href: "/" },
+  { label: "About",        href: "/about" },
+  { label: "How It Works", href: "/how-it-works" },
+  { label: "Why NFSF",     href: "/why-nfsf" },
+  { label: "Impact",       href: "/impact" },
+  { label: "FAQ",          href: "/faq" },
+  { label: "Verify",       href: "/verify" },
 ];
 
 export default function Navbar() {
@@ -36,10 +38,10 @@ export default function Navbar() {
     <header
       ref={menuRef}
       role="banner"
-      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm"
+      className="fixed top-0 left-0 right-0 z-50 bg-forest-50 border-b border-forest-100 shadow-sm"
     >
       <nav
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20 md:h-24"
         aria-label="Main navigation"
       >
         {/* Logo */}
@@ -47,15 +49,15 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Nature & Farmers Sustainability Foundation"
-            width={200}
-            height={60}
+            width={260}
+            height={78}
             priority
-            className="h-9 w-auto sm:h-11"
+            className="h-12 w-auto sm:h-16"
           />
         </Link>
 
         {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-6 list-none m-0 p-0" role="list">
+        <ul className="hidden md:flex items-center gap-5 list-none m-0 p-0" role="list">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
             return (
@@ -76,7 +78,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:block">
-          <Link href="/donate" className="btn-primary text-sm py-2.5 px-5 min-h-[44px] inline-flex items-center">
+          <Link href="/donate" className="btn-primary btn-shine text-sm py-2.5 px-5 min-h-[44px] inline-flex items-center">
             Donate Now
             <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -106,7 +108,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden bg-white border-t border-forest-100 shadow-lg"
+          className="md:hidden bg-forest-50 border-t border-forest-100 shadow-lg"
           role="dialog"
           aria-label="Mobile navigation menu"
         >
