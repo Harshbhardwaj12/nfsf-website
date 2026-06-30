@@ -83,20 +83,20 @@ export default function Campaigns() {
           </h2>
         </div>
 
-        {/* ── Campaign cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* ── Campaign cards (2-up on mobile to keep scroll short, 4-up on desktop) ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {CAMPAIGNS.map((c, i) => (
             <Link
               key={c.title}
               href="/donate"
-              className="campaign-card animate-on-scroll group relative block h-80 rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5"
+              className="campaign-card animate-on-scroll group relative block h-48 sm:h-72 lg:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5"
               style={{ transitionDelay: `${i * 90}ms` }}
             >
               <Image
                 src={c.src}
                 alt={c.title}
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                sizes="(max-width: 1024px) 50vw, 25vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <div
@@ -104,12 +104,12 @@ export default function Campaigns() {
                 style={{ background: "linear-gradient(180deg, rgba(7,26,13,0) 35%, rgba(7,26,13,0.92) 100%)" }}
                 aria-hidden="true"
               />
-              <div className="absolute inset-x-0 bottom-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <span className="inline-block text-forest-200 text-xs font-semibold tracking-wide mb-2">
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 sm:translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <span className="inline-block text-forest-200 text-[0.65rem] sm:text-xs font-semibold tracking-wide mb-1 sm:mb-2">
                   {c.tag}
                 </span>
-                <h3 className="font-serif text-xl font-bold text-white leading-tight">{c.title}</h3>
-                <p className="text-white/0 group-hover:text-white/85 text-sm mt-1.5 max-h-0 group-hover:max-h-24 overflow-hidden transition-all duration-300">
+                <h3 className="font-serif text-sm sm:text-xl font-bold text-white leading-tight">{c.title}</h3>
+                <p className="hidden sm:block text-white/0 group-hover:text-white/85 text-sm mt-1.5 max-h-0 group-hover:max-h-24 overflow-hidden transition-all duration-300">
                   {c.blurb}
                 </p>
               </div>

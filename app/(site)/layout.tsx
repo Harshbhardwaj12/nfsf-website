@@ -7,8 +7,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Navbar />
-      {/* Extra bottom padding so the fixed mobile donate bar never covers content */}
-      <main className="pb-24 md:pb-0">{children}</main>
+      <main>{children}</main>
       <Footer />
       <FloatingDonate />
       <MobileDonateBar />
