@@ -31,7 +31,7 @@ const COLS = [
 export default function WhyNFSF() {
   return (
     <section className="bg-white" aria-labelledby="why-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-24">
         <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <span className="text-forest-600 text-sm font-semibold tracking-widest uppercase">
             Why It Matters

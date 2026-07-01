@@ -24,7 +24,7 @@ const STEPS = [
 export default function ProcessSteps() {
   return (
     <section id="how-it-works" className="bg-forest-50" aria-labelledby="process-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
           <span className="text-forest-600 text-sm font-semibold tracking-widest uppercase">
             Simple &amp; Transparent

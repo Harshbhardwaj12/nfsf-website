@@ -73,7 +73,7 @@ export default function TreeSpecies() {
   }, []);
 
   return (
-    <section className="py-20 lg:py-28 bg-mist-50" aria-labelledby="species-heading">
+    <section className="py-10 lg:py-28 bg-mist-50" aria-labelledby="species-heading">
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
           <span className="inline-block text-xs font-semibold uppercase tracking-widest text-forest-600 mb-3">

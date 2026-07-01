@@ -110,7 +110,7 @@ export default function Hero() {
       </div>
 
       {/* ── Foreground copy: light panel below the banner on mobile, overlaid & centred on desktop ── */}
-      <div className="relative z-10 max-w-3xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-10 sm:py-14 lg:py-32 text-center">
+      <div className="relative z-10 max-w-3xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-8 sm:py-14 lg:py-32 text-center">
         <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forest-50 border border-forest-200 lg:bg-white/10 lg:border-white/20 mb-5 sm:mb-6 lg:backdrop-blur-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-forest-500 animate-pulse" aria-hidden="true" />
           <span className="text-forest-700 lg:text-white/85 text-xs font-semibold tracking-widest uppercase">

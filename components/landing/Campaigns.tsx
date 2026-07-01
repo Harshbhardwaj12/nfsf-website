@@ -39,7 +39,7 @@ const CAMPAIGNS = [
 
 export default function Campaigns() {
   return (
-    <section className="bg-mist-50 py-12 md:py-16" aria-label="Planting campaigns">
+    <section className="bg-mist-50 py-8 md:py-16" aria-label="Planting campaigns">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Seasonal monsoon banner ── */}
         <div className="campaign-banner animate-on-scroll relative overflow-hidden rounded-3xl mb-10 shadow-xl">

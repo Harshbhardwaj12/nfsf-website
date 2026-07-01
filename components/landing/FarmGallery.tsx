@@ -11,7 +11,7 @@ const PHOTOS = [
 
 export default function FarmGallery() {
   return (
-    <section className="bg-white py-16 md:py-20" aria-label="From our farmland">
+    <section className="bg-white py-10 md:py-20" aria-label="From our farmland">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 animate-on-scroll">
           <p className="text-forest-600 text-sm font-semibold tracking-widest uppercase mb-3">
