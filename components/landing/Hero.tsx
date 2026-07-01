@@ -148,11 +148,12 @@ export default function Hero() {
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-          {/* Outline button: dark-green on the light mobile panel, white on the dark desktop background */}
-          <Link href="/how-it-works" className="btn-outline lg:hidden text-base py-3.5 px-7 w-full sm:w-auto justify-center min-h-[44px]">
+          {/* Outline button: dark-green on the light mobile panel, white on the dark desktop background.
+              The btn-outline* classes set `display`, so we need `!` to let the responsive toggle win. */}
+          <Link href="/how-it-works" className="btn-outline lg:!hidden text-base py-3.5 px-7 w-full sm:w-auto justify-center min-h-[44px]">
             How It Works
           </Link>
-          <Link href="/how-it-works" className="btn-outline-white hidden lg:inline-flex text-base py-3.5 px-7 w-full sm:w-auto justify-center min-h-[44px]">
+          <Link href="/how-it-works" className="btn-outline-white !hidden lg:!inline-flex text-base py-3.5 px-7 w-full sm:w-auto justify-center min-h-[44px]">
             How It Works
           </Link>
         </div>

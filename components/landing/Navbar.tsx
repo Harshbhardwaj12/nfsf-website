@@ -112,7 +112,7 @@ export default function Navbar() {
           role="dialog"
           aria-label="Mobile navigation menu"
         >
-          <ul className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 list-none m-0" role="list">
+          <ul className="max-w-7xl mx-auto px-4 py-2.5 flex flex-col gap-0.5 list-none m-0" role="list">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href;
               return (
@@ -120,10 +120,10 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     aria-current={active ? "page" : undefined}
-                    className={`flex items-center min-h-[44px] px-3 py-2.5 font-medium rounded-md transition-colors ${
+                    className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                       active
-                        ? "bg-forest-50 text-forest-700"
-                        : "text-forest-800 hover:bg-forest-50 hover:text-forest-700"
+                        ? "bg-forest-100 text-forest-700"
+                        : "text-forest-800 hover:bg-forest-100 hover:text-forest-700"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -132,8 +132,8 @@ export default function Navbar() {
                 </li>
               );
             })}
-            <li className="pt-2">
-              <Link href="/donate" className="btn-primary w-full justify-center min-h-[44px] inline-flex items-center" onClick={() => setMenuOpen(false)}>
+            <li className="pt-1.5">
+              <Link href="/donate" className="btn-primary w-full justify-center inline-flex items-center py-2.5" onClick={() => setMenuOpen(false)}>
                 Plant a Tree
               </Link>
             </li>
