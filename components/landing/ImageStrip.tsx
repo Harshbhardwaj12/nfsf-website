@@ -1,3 +1,8 @@
+/**
+ * ImageStrip.tsx — Full-width three-column strip of plantation photos
+ * showcasing on-the-ground planting work.
+ */
+
 import Image from "next/image";
 
 const IMAGES = [
@@ -6,6 +11,7 @@ const IMAGES = [
   { src: "/images/farm-planting-4.webp", alt: "A plantation site with young trees taking root" },
 ];
 
+/** Renders a three-column strip of plantation photographs. */
 export default function ImageStrip() {
   return (
     <section className="bg-white" aria-label="Photos from our plantation work">

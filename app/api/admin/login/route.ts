@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { timingSafeEqual } from "crypto";
-import { COOKIE_NAME, SESSION_TTL_SECONDS, createSession } from "@/lib/adminSession";
-import { rateLimit, clientIp } from "@/lib/rateLimit";
+import { COOKIE_NAME, SESSION_TTL_SECONDS, createSession } from "@/lib/auth/adminSession";
+import { rateLimit, clientIp } from "@/lib/utils/rateLimit";
 
 export const dynamic = "force-dynamic";
 

@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { randomBytes } from "crypto";
-import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
-import { validateDonation, PRICE_PER_TREE } from "@/lib/validation";
-import { rateLimit, clientIp } from "@/lib/rateLimit";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/db/supabaseAdmin";
+import { validateDonation, PRICE_PER_TREE } from "@/lib/donation/validation";
+import { rateLimit, clientIp } from "@/lib/utils/rateLimit";
 
 export const dynamic = "force-dynamic";
 

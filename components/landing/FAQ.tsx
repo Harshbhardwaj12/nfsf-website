@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * FAQ landing section — an accordion of common donor questions and answers.
+ */
+
 import { useEffect, useRef, useState } from "react";
 
 const FAQS: { q: string; a: string }[] = [
@@ -29,6 +33,7 @@ const FAQS: { q: string; a: string }[] = [
   },
 ];
 
+/** Renders the expandable FAQ accordion section of the landing page. */
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   const sectionRef = useRef<HTMLDivElement>(null);

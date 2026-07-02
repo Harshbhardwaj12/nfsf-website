@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * ProjectCard.tsx — Featured plantation project card with a preset tree-quantity
+ * picker, price calculation, and an image gallery leading into the donate flow.
+ */
+
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,6 +18,7 @@ const GALLERY = [
   "/images/india-farm-a.webp",
 ];
 
+/** Renders the featured project card with tree-quantity presets and gallery. */
 export default function ProjectCard() {
   const [trees, setTrees] = useState(1);
   const [activeImg, setActiveImg] = useState(GALLERY[0]);

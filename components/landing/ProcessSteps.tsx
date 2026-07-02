@@ -1,3 +1,8 @@
+/**
+ * ProcessSteps.tsx — Three-step "how it works" section walking donors through
+ * choosing trees, paying, and receiving their certificate.
+ */
+
 const STEPS = [
   {
     n: "1",
@@ -21,6 +26,7 @@ const STEPS = [
   },
 ];
 
+/** Renders the numbered three-step donation process overview. */
 export default function ProcessSteps() {
   return (
     <section id="how-it-works" className="bg-forest-50" aria-labelledby="process-heading">

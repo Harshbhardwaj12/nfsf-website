@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * HowItWorks landing section — walks visitors through the numbered steps of the
+ * tree-planting journey, each paired with a photo and supporting metadata.
+ */
+
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -98,6 +103,7 @@ const ACCENT = {
   },
 } as const;
 
+/** Renders the "how it works" step-by-step section of the landing page. */
 export default function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
 

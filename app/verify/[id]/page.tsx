@@ -1,8 +1,13 @@
+/**
+ * Certificate verification detail page ("/verify/[id]").
+ * Server-renders a donation record looked up by certificate ID, showing either
+ * verified details or a not-found state. In mock mode (no DB) all IDs are unknown.
+ */
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
-import { type Donation } from "@/lib/supabase";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/db/supabaseAdmin";
+import { type Donation } from "@/lib/db/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +15,7 @@ interface Props {
   params: { id: string };
 }
 
+/** Spinner shown while the certificate is being fetched. */
 function VerifyLoading() {
   return (
     <div className="min-h-screen bg-mist-50 flex flex-col">
@@ -34,6 +40,7 @@ function VerifyLoading() {
   );
 }
 
+/** Suspense wrapper around the async certificate verification content. */
 export default function VerifyPage({ params }: Props) {
   return (
     <Suspense fallback={<VerifyLoading />}>
@@ -42,6 +49,7 @@ export default function VerifyPage({ params }: Props) {
   );
 }
 
+/** Looks up the donation by ID and renders the verified or not-found view. */
 async function VerifyContent({ params }: Props) {
   // Mock mode (no database configured) can't verify certificates server-side —
   // there's nothing to look up — so treat every ID as "not found".
@@ -137,6 +145,7 @@ async function VerifyContent({ params }: Props) {
   );
 }
 
+/** Label/value pair used in the certificate details card. */
 function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex justify-between items-start gap-3">

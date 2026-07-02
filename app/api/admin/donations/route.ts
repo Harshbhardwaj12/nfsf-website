@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { COOKIE_NAME, verifySession } from "@/lib/adminSession";
-import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
+import { COOKIE_NAME, verifySession } from "@/lib/auth/adminSession";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/db/supabaseAdmin";
 
 export const dynamic = "force-dynamic";
 

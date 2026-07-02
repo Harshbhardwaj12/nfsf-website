@@ -1,8 +1,14 @@
 "use client";
 
+/**
+ * FloatingDonate.tsx — Persistent desktop-only floating "Plant a Tree" donate
+ * pill (bottom-right), hidden on the donate flow itself.
+ */
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+/** Renders the desktop floating donate pill, hidden on /donate routes. */
 export default function FloatingDonate() {
   const pathname = usePathname();
   if (pathname?.startsWith("/donate")) return null;

@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * TrustSection landing section — presents the trust pillars that set the
+ * foundation apart (registration status, verifiable certificates, and more).
+ */
+
 import { useEffect, useRef } from "react";
 
 const PILLARS = [
@@ -39,6 +44,7 @@ const PILLARS = [
   },
 ];
 
+/** Renders the trust-pillars section of the landing page. */
 export default function TrustSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 

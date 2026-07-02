@@ -1,8 +1,8 @@
 import type { jsPDF } from "jspdf";
-import type { Donation } from "@/lib/supabase";
-import type { GiftDetails } from "@/lib/gift";
-import { type CertDesignId, CERT_DESIGNS, DEFAULT_CERT_DESIGN } from "@/lib/certDesigns";
-import { NOTO_SANS_REGULAR_B64, NOTO_SANS_BOLD_B64 } from "@/lib/certificateFont";
+import type { Donation } from "@/lib/db/supabase";
+import type { GiftDetails } from "@/lib/donation/gift";
+import { type CertDesignId, CERT_DESIGNS, DEFAULT_CERT_DESIGN } from "@/lib/cert/certDesigns";
+import { NOTO_SANS_REGULAR_B64, NOTO_SANS_BOLD_B64 } from "@/lib/cert/certificateFont";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // NFSF Certificate of Tree Plantation — landscape A4 PDF.

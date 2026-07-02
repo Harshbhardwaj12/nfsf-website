@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * Navbar.tsx — Site-wide top navigation with the brand logo, primary links,
+ * active-route highlighting, and a responsive mobile menu.
+ */
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +20,7 @@ const NAV_LINKS = [
   { label: "Verify",       href: "/verify" },
 ];
 
+/** Renders the responsive top navigation bar with active-route highlighting. */
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);

@@ -1,14 +1,21 @@
 "use client";
 
+/**
+ * Certificate lookup page ("/verify").
+ * Prompts for a certificate ID and redirects to /verify/[id] for validation.
+ */
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
+/** Renders the certificate ID entry form. */
 export default function VerifyLookupPage() {
   const router = useRouter();
   const [id, setId] = useState("");
 
+  // Navigate to the verification detail route for the entered ID.
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = id.trim();

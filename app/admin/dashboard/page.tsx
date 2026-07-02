@@ -1,9 +1,15 @@
 "use client";
 
+/**
+ * Admin dashboard page ("/admin/dashboard").
+ * Fetches all donations (auth enforced server-side), shows summary totals, and
+ * provides a searchable table with links to verify each certificate.
+ */
+
 import { useEffect, useState, useMemo, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Donation } from "@/lib/supabase";
+import { Donation } from "@/lib/db/supabase";
 
 const ICONS: Record<string, ReactNode> = {
   donations: (
@@ -17,6 +23,7 @@ const ICONS: Record<string, ReactNode> = {
   ),
 };
 
+/** Renders the admin donations dashboard with totals and searchable table. */
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [donations, setDonations] = useState<Donation[]>([]);
@@ -41,6 +48,7 @@ export default function AdminDashboardPage() {
     load();
   }, [router]);
 
+  // Clear the admin session and return to the login page.
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
     router.replace("/admin/login");
@@ -191,6 +199,7 @@ export default function AdminDashboardPage() {
   );
 }
 
+/** Stat card displaying a single dashboard metric with an icon. */
 function SummaryCard({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
   return (
     <div className="bg-white rounded-2xl shadow-card border border-gray-100 px-6 py-5 flex items-center gap-4">

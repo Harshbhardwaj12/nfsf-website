@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * TreeSpecies landing section — showcases the native tree species planted,
+ * with botanical names, short blurbs, and descriptive tags.
+ */
+
 import { useEffect, useRef } from "react";
 
 type Species = {
@@ -53,6 +58,7 @@ const LeafMark = (
   </svg>
 );
 
+/** Renders the native tree species showcase section of the landing page. */
 export default function TreeSpecies() {
   const sectionRef = useRef<HTMLDivElement>(null);
 

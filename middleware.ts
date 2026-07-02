@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { COOKIE_NAME, verifySession } from "@/lib/adminSession";
+import { COOKIE_NAME, verifySession } from "@/lib/auth/adminSession";
 
 /**
  * Protects the admin dashboard. Unauthenticated requests are redirected to the

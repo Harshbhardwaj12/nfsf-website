@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { type Donation } from "@/lib/supabase";
-import { type GiftDetails } from "@/lib/gift";
-import { type CertDesignId, CERT_DESIGNS, DEFAULT_CERT_DESIGN } from "@/lib/certDesigns";
+import { type Donation } from "@/lib/db/supabase";
+import { type GiftDetails } from "@/lib/donation/gift";
+import { type CertDesignId, CERT_DESIGNS, DEFAULT_CERT_DESIGN } from "@/lib/cert/certDesigns";
 
 /**
  * Lightweight HTML preview of the donor's certificate. Mirrors the generated
@@ -23,7 +23,7 @@ export default function CertificatePreview({
     year: "numeric",
   });
   const isGift = !!(gift?.isGift && gift.recipientName);
-  const photo = CERT_DESIGNS.find((d) => d.id === "photo")?.photo ?? "/images/forest-path.jpg";
+  const photo = CERT_DESIGNS.find((d) => d.id === "photo")?.photo ?? "/images/forest-mist.jpg";
 
   const meta: [string, string][] = [
     ["Date", dateStr],

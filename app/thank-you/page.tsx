@@ -1,15 +1,23 @@
 "use client";
 
+/**
+ * Thank-you page ("/thank-you").
+ * Loads the donation by certificate ID (from the API, falling back to the
+ * mock-mode localStorage cache), shows a summary, and lets the donor pick a
+ * certificate design and download the generated PDF.
+ */
+
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { type Donation } from "@/lib/supabase";
-import { generateCertificate } from "@/lib/certificate";
-import { readGift, type GiftDetails } from "@/lib/gift";
+import { type Donation } from "@/lib/db/supabase";
+import { generateCertificate } from "@/lib/cert/certificate";
+import { readGift, type GiftDetails } from "@/lib/donation/gift";
 import CertificatePreview from "@/components/CertificatePreview";
-import { CERT_DESIGNS, DEFAULT_CERT_DESIGN, type CertDesignId } from "@/lib/certDesigns";
+import { CERT_DESIGNS, DEFAULT_CERT_DESIGN, type CertDesignId } from "@/lib/cert/certDesigns";
 
+/** Suspense boundary for the thank-you page (required for useSearchParams). */
 export default function ThankYouPage() {
   return (
     <Suspense fallback={
@@ -22,6 +30,7 @@ export default function ThankYouPage() {
   );
 }
 
+/** Loads and renders the donation confirmation and certificate download. */
 function ThankYouContent() {
   const searchParams = useSearchParams();
   const certId = searchParams.get("id");
@@ -59,6 +68,7 @@ function ThankYouContent() {
       });
   }, [certId]);
 
+  // Generate and download the certificate PDF for the current design.
   async function handleDownload() {
     if (!donation) return;
     setDownloading(true);
@@ -205,6 +215,7 @@ function ThankYouContent() {
   );
 }
 
+/** Icon + label/value row used in the donation summary card. */
 function SummaryRow({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
     <div className="flex items-center gap-3">

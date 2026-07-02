@@ -1,3 +1,8 @@
+/**
+ * Root layout for the entire application.
+ * Defines global metadata (SEO/OpenGraph), loads global styles, and injects a
+ * resilient scroll-reveal script that animates elements independently of React.
+ */
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -13,6 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
+/** Root HTML shell wrapping every page with the global scroll-reveal script. */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>

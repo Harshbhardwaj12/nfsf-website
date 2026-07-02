@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * SocialProof landing section — surfaces donor testimonials alongside headline
+ * impact figures to build trust with prospective supporters.
+ */
+
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -31,6 +36,7 @@ const IMPACT_STATS = [
   { label: "CO₂ absorbed every year", value: "500 kg" },
 ];
 
+/** Renders the donor testimonials and social-proof section of the landing page. */
 export default function SocialProof() {
   const sectionRef = useRef<HTMLDivElement>(null);
 

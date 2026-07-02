@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * WhyItMatters landing section — explains the environmental and social impact
+ * of each donation across several illustrated points.
+ */
+
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -46,6 +51,7 @@ const POINTS = [
   },
 ];
 
+/** Renders the "why it matters" impact-explanation section of the landing page. */
 export default function WhyItMatters() {
   const sectionRef = useRef<HTMLDivElement>(null);
 

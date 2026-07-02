@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * MissionStats landing section — displays headline impact figures (trees
+ * planted, CO2 offset, etc.) with count-up animations as they scroll into view.
+ */
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -124,6 +129,7 @@ function StatItem({
   );
 }
 
+/** Renders the animated mission impact statistics section of the landing page. */
 export default function MissionStats() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);

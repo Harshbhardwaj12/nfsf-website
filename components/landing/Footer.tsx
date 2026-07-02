@@ -1,6 +1,12 @@
+/**
+ * Footer.tsx — Site-wide footer with brand block, navigation links,
+ * and an auto-updating copyright year.
+ */
+
 import Link from "next/link";
 import Image from "next/image";
 
+/** Renders the site footer with brand, links, and current-year copyright. */
 export default function Footer() {
   const year = new Date().getFullYear();
 

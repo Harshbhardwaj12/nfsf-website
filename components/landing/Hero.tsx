@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * Hero.tsx — Landing hero section with a rotating background photo carousel
+ * and the primary "Plant a Tree" call-to-action.
+ */
+
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -12,6 +17,7 @@ const SLIDES = [
   "/images/field-sunset.jpg",
 ];
 
+/** Renders the landing hero with the background slide carousel and donate CTA. */
 export default function Hero() {
   const [index, setIndex] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);

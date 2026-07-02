@@ -1,3 +1,8 @@
+/**
+ * WhyNFSF landing section — a three-column breakdown of who benefits from a
+ * donation (the environment, the farmers, and the donor).
+ */
+
 const COLS = [
   {
     title: "For the Environment",
@@ -28,6 +33,7 @@ const COLS = [
   },
 ];
 
+/** Renders the three-column "who benefits" section of the landing page. */
 export default function WhyNFSF() {
   return (
     <section className="bg-white" aria-labelledby="why-heading">

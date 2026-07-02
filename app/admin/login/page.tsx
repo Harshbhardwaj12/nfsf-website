@@ -1,9 +1,16 @@
 "use client";
 
+/**
+ * Admin login page ("/admin/login").
+ * Posts credentials to /api/admin/login and, on success, redirects to the
+ * admin dashboard.
+ */
+
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+/** Renders the admin credential form and handles authentication. */
 export default function AdminLoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -11,6 +18,7 @@ export default function AdminLoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Authenticate against the login API; redirect to the dashboard on success.
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);

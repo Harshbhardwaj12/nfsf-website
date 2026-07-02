@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * TrustBar.tsx — Impact statistics band with count-up animated numbers
+ * (trees planted, farmers supported, etc.) that trigger when scrolled into view.
+ */
+
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type Stat = {
@@ -99,6 +104,7 @@ function StatItem({ stat, run }: { stat: Stat; run: boolean }) {
   );
 }
 
+/** Renders the trust/impact statistics bar with scroll-triggered count-up figures. */
 export default function TrustBar() {
   const ref = useRef<HTMLElement>(null);
   const [run, setRun] = useState(false);

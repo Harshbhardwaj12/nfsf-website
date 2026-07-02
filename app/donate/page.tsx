@@ -1,10 +1,17 @@
 "use client";
 
+/**
+ * Donation page ("/donate").
+ * Two-step flow: collect donor details (with optional gift personalisation and a
+ * honeypot anti-bot field), then confirm and submit to /api/donate. On success
+ * caches mock-mode data and forwards to the thank-you page.
+ */
+
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { GIFT_OCCASIONS, GIFT_LIMITS, stashGift, type GiftDetails } from "@/lib/gift";
+import { GIFT_OCCASIONS, GIFT_LIMITS, stashGift, type GiftDetails } from "@/lib/donation/gift";
 
 const PRICE_PER_TREE = 300;
 
@@ -22,6 +29,7 @@ const EMPTY_GIFT: GiftDetails = {
   treeName: "",
 };
 
+/** Multi-step donation form with gift options and mock-payment confirmation. */
 export default function DonatePage() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
@@ -34,6 +42,7 @@ export default function DonatePage() {
 
   const total = form.trees * PRICE_PER_TREE;
 
+  // Validate step-1 fields; returns a map of field name -> error message.
   function validate() {
     const e: Partial<Record<keyof FormData, string>> = {};
     if (!form.name.trim()) e.name = "Name is required";
@@ -51,6 +60,7 @@ export default function DonatePage() {
     setStep(2);
   }
 
+  // Submit the donation to the API, persist client-only data, then navigate on.
   async function handleConfirm() {
     setSubmitting(true);
     setSubmitError(null);
@@ -405,6 +415,7 @@ export default function DonatePage() {
   );
 }
 
+/** Label/value pair used in the step-2 confirmation summary. */
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between">

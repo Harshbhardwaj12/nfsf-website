@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
-import { isValidCertId } from "@/lib/validation";
-import { rateLimit, clientIp } from "@/lib/rateLimit";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/db/supabaseAdmin";
+import { isValidCertId } from "@/lib/donation/validation";
+import { rateLimit, clientIp } from "@/lib/utils/rateLimit";
 
 export const dynamic = "force-dynamic";
 

@@ -14,7 +14,7 @@ export interface CertDesign {
 
 export const CERT_DESIGNS: CertDesign[] = [
   { id: "classic", name: "Classic Forest", desc: "Deep green header, ivory paper" },
-  { id: "photo", name: "Photo Banner", desc: "Plantation photo header", photo: "/images/forest-path.jpg" },
+  { id: "photo", name: "Photo Banner", desc: "Plantation photo header", photo: "/images/forest-mist.jpg" },
   { id: "ivory", name: "Minimal Ivory", desc: "Clean, light and understated" },
 ];
 
