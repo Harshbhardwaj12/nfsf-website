@@ -384,15 +384,11 @@ export default function DonatePage() {
                   </div>
                 </div>
 
-                <p className="text-center text-xs text-amber-700 bg-amber-50 rounded-lg px-4 py-2 mb-6">
-                  This is a mock payment — no money will be charged.
-                </p>
-
                 {submitError && (
                   <p className="text-red-500 text-sm text-center mb-3">{submitError}</p>
                 )}
                 <button onClick={handleConfirm} disabled={submitting} className="btn-primary w-full justify-center text-base py-4 min-h-[44px]">
-                  {submitting ? "Processing…" : "Confirm Donation (Mock)"}
+                  {submitting ? "Processing…" : "Confirm Donation"}
                   {!submitting && (
                     <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
