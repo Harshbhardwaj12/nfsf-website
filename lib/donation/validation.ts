@@ -9,10 +9,19 @@ export function isValidCertId(id: unknown): id is string {
   return typeof id === "string" && CERT_ID_RE.test(id);
 }
 
+export interface GiftInput {
+  isGift: boolean;
+  recipientName?: string;
+  occasion?: string;
+  treeName?: string;
+  message?: string;
+}
+
 export interface DonationInput {
   name: string;
   email: string;
   trees: number;
+  gift: GiftInput;
 }
 
 type ValidationResult =
@@ -45,5 +54,19 @@ export function validateDonation(body: unknown): ValidationResult {
     return { ok: false, error: "Number of trees must be between 1 and 1000." };
   }
 
-  return { ok: true, value: { name, email, trees } };
+  // Gift fields — optional, capped to match client-side limits
+  const rawGift = b.gift && typeof b.gift === "object" ? b.gift as Record<string, unknown> : {};
+  const gift: GiftInput = { isGift: rawGift.isGift === true };
+  if (gift.isGift) {
+    const rn = typeof rawGift.recipientName === "string" ? rawGift.recipientName.trim() : "";
+    if (rn.length > 0) gift.recipientName = rn.slice(0, 60);
+    const occ = typeof rawGift.occasion === "string" ? rawGift.occasion.trim() : "";
+    if (occ.length > 0) gift.occasion = occ.slice(0, 80);
+    const tn = typeof rawGift.treeName === "string" ? rawGift.treeName.trim() : "";
+    if (tn.length > 0) gift.treeName = tn.slice(0, 40);
+    const msg = typeof rawGift.message === "string" ? rawGift.message.trim() : "";
+    if (msg.length > 0) gift.message = msg.slice(0, 140);
+  }
+
+  return { ok: true, value: { name, email, trees, gift } };
 }

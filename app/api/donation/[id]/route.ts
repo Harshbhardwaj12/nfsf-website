@@ -29,7 +29,7 @@ export async function GET(
 
   const { data } = await getSupabaseAdmin()
     .from("donations")
-    .select("donor_name,email,trees,amount,certificate_id,created_at")
+    .select("donor_name,email,trees,amount,certificate_id,created_at,is_gift,recipient_name,occasion,tree_name,gift_message")
     .eq("certificate_id", params.id)
     .single();
 

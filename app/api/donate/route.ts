@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  const { name, email, trees } = result.value;
+  const { name, email, trees, gift } = result.value;
   // Amount is computed on the server — never trust a client-sent amount.
   const amount = trees * PRICE_PER_TREE;
 
@@ -51,6 +51,16 @@ export async function POST(req: NextRequest) {
   // donation so the client can cache it for the thank-you page / certificate.
   // This lets the donation flow be tested end-to-end without a database.
   // Production sets the key, so this branch never runs there.
+  const giftRow = gift.isGift
+    ? {
+        is_gift: true,
+        recipient_name: gift.recipientName ?? null,
+        occasion: gift.occasion ?? null,
+        tree_name: gift.treeName ?? null,
+        gift_message: gift.message ?? null,
+      }
+    : { is_gift: false, recipient_name: null, occasion: null, tree_name: null, gift_message: null };
+
   if (!isSupabaseConfigured()) {
     const donation = {
       id: certificate_id,
@@ -60,13 +70,14 @@ export async function POST(req: NextRequest) {
       amount,
       certificate_id,
       created_at: new Date().toISOString(),
+      ...giftRow,
     };
     return NextResponse.json({ certificate_id, donation, mock: true });
   }
 
   const { error } = await getSupabaseAdmin()
     .from("donations")
-    .insert([{ donor_name: name, email, trees, amount, certificate_id }] as any);
+    .insert([{ donor_name: name, email, trees, amount, certificate_id, ...giftRow }] as any);
 
   if (error) {
     return NextResponse.json(

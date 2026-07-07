@@ -74,6 +74,13 @@ export default function DonatePage() {
           email: form.email,
           trees: form.trees,
           company: honeypot,
+          gift: {
+            isGift: gift.isGift,
+            recipientName: gift.recipientName?.trim() || undefined,
+            occasion: gift.occasion?.trim() || undefined,
+            treeName: gift.treeName?.trim() || undefined,
+            message: gift.message?.trim() || undefined,
+          },
         }),
       });
       const data = await res.json().catch(() => ({}));

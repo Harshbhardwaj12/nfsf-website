@@ -57,7 +57,7 @@ async function VerifyContent({ params }: Props) {
     ? (
         await getSupabaseAdmin()
           .from("donations")
-          .select("donor_name,trees,amount,certificate_id,created_at")
+          .select("donor_name,trees,amount,certificate_id,created_at,is_gift,recipient_name,occasion,tree_name,gift_message")
           .eq("certificate_id", params.id)
           .single<Donation>()
       ).data
@@ -126,6 +126,16 @@ async function VerifyContent({ params }: Props) {
             <Row label="Amount Donated" value={`₹${data.amount.toLocaleString("en-IN")}`} />
             <Row label="Date" value={dateStr} />
             <Row label="Planting Location" value="Our dedicated farmland" />
+            {data.is_gift && data.recipient_name && (
+              <>
+                <div className="border-t border-gray-100 pt-4">
+                  <Row label="Gift for" value={data.recipient_name} />
+                </div>
+                {data.occasion && <Row label="Occasion" value={data.occasion} />}
+                {data.tree_name && <Row label="Tree named" value={data.tree_name} />}
+                {data.gift_message && <Row label="Message" value={data.gift_message} />}
+              </>
+            )}
             <div className="border-t border-gray-100 pt-4">
               <Row label="Certificate ID" value={data.certificate_id} mono />
             </div>

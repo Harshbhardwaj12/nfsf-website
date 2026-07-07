@@ -10,4 +10,10 @@ export interface Donation {
   amount: number;
   certificate_id: string;
   created_at: string;
+  // Gift fields — null when not a gift
+  is_gift: boolean;
+  recipient_name: string | null;
+  occasion: string | null;
+  tree_name: string | null;
+  gift_message: string | null;
 }
