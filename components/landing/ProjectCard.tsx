@@ -152,13 +152,13 @@ export default function ProjectCard() {
                 href="/donate"
                 className="btn-primary flex-1 justify-center text-base py-4"
               >
-                Plant for Me
+                For Myself
               </Link>
               <Link
                 href="/donate"
                 className="btn-outline flex-1 justify-center text-base py-4"
               >
-                Gift Trees
+                As a Gift
               </Link>
             </div>
 

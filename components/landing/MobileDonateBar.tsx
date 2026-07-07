@@ -38,9 +38,9 @@ export default function MobileDonateBar() {
       <Link
         href="/donate"
         className="inline-flex items-center gap-2 rounded-full bg-forest-700 text-white font-bold pl-4 pr-2 py-2 shadow-xl ring-1 ring-black/10 transition-colors hover:bg-forest-800"
-        aria-label="Plant a tree for ₹300"
+        aria-label="Sponsor a tree for ₹300"
       >
-        <span className="text-sm">Plant a Tree</span>
+        <span className="text-sm">Sponsor a Tree</span>
         <span className="inline-flex items-center rounded-full bg-white text-forest-800 font-bold text-sm px-2.5 py-1">
           ₹300
         </span>

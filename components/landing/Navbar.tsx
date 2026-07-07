@@ -140,7 +140,7 @@ export default function Navbar() {
             })}
             <li className="pt-1.5">
               <Link href="/donate" className="btn-primary w-full justify-center inline-flex items-center py-2.5" onClick={() => setMenuOpen(false)}>
-                Plant a Tree
+                Donate Now
               </Link>
             </li>
           </ul>
