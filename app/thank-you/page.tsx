@@ -131,21 +131,21 @@ function ThankYouContent() {
           </p>
 
           <div className="bg-white rounded-2xl shadow-card p-7 mb-6 text-left space-y-4">
-            <SummaryRow icon="🌳" label="Trees Planted" value={`${donation.trees} ${donation.trees === 1 ? "tree" : "trees"}`} />
-            <SummaryRow icon="💰" label="Amount Donated" value={`₹${donation.amount.toLocaleString("en-IN")}`} />
-            <SummaryRow icon="📅" label="Date" value={dateStr} />
-            <SummaryRow icon="📍" label="Planting Location" value="Our dedicated farmland" />
+            <SummaryRow label="Trees Planted" value={`${donation.trees} ${donation.trees === 1 ? "tree" : "trees"}`} />
+            <SummaryRow label="Amount Donated" value={`₹${donation.amount.toLocaleString("en-IN")}`} />
+            <SummaryRow label="Date" value={dateStr} />
+            <SummaryRow label="Planting Location" value="Our dedicated farmland" />
             {gift?.isGift && gift.recipientName && (
               <>
                 <div className="border-t border-gray-100 pt-4">
-                  <SummaryRow icon="🎁" label="A gift for" value={gift.recipientName} />
+                  <SummaryRow label="A gift for" value={gift.recipientName} />
                 </div>
-                {gift.occasion && <SummaryRow icon="🎉" label="Occasion" value={gift.occasion} />}
-                {gift.treeName && <SummaryRow icon="🌱" label="Tree named" value={gift.treeName} />}
+                {gift.occasion && <SummaryRow label="Occasion" value={gift.occasion} />}
+                {gift.treeName && <SummaryRow label="Tree named" value={gift.treeName} />}
               </>
             )}
             <div className={gift?.isGift && gift.recipientName ? "border-t border-gray-100 pt-4" : ""}>
-              <SummaryRow icon="🆔" label="Certificate ID" value={donation.certificate_id} />
+              <SummaryRow label="Certificate ID" value={donation.certificate_id} />
             </div>
           </div>
 
@@ -216,14 +216,11 @@ function ThankYouContent() {
 }
 
 /** Icon + label/value row used in the donation summary card. */
-function SummaryRow({ icon, label, value }: { icon: string; label: string; value: string }) {
+function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-xl">{icon}</span>
-      <div className="flex-1 flex justify-between items-center">
-        <span className="text-sm text-gray-500">{label}</span>
-        <span className="font-medium text-forest-800">{value}</span>
-      </div>
+    <div className="flex justify-between items-center gap-3">
+      <span className="text-sm text-gray-500">{label}</span>
+      <span className="font-medium text-forest-800 text-right">{value}</span>
     </div>
   );
 }

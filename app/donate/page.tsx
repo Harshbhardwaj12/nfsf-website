@@ -233,7 +233,6 @@ export default function DonatePage() {
                 <div className="mt-6 rounded-xl border border-gray-200 overflow-hidden">
                   <label className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer select-none">
                     <span className="flex items-center gap-2.5">
-                      <span className="text-lg" aria-hidden="true">🎁</span>
                       <span className="text-sm font-medium text-forest-800">
                         This is a gift for someone
                       </span>
@@ -376,7 +375,7 @@ export default function DonatePage() {
                   )}
                   <div className="border-t border-forest-100 pt-3 flex justify-between items-center">
                     <span className="text-forest-700 font-medium">
-                      🌳 {form.trees} {form.trees === 1 ? "tree" : "trees"}
+                      {form.trees} {form.trees === 1 ? "tree" : "trees"}
                     </span>
                     <span className="font-serif font-bold text-2xl text-forest-800">
                       ₹{total.toLocaleString("en-IN")}
