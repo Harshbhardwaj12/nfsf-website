@@ -32,6 +32,12 @@ export function getSupabaseAdmin(): SupabaseClient {
     }
     _admin = createClient(url, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        // Next.js patches global fetch and caches GET requests by default, which
+        // makes supabase-js return stale rows (e.g. the admin dashboard missing
+        // the newest donations). Force every DB request to bypass that cache.
+        fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+      },
     });
   }
   return _admin;

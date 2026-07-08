@@ -27,9 +27,12 @@ export async function GET(
     return NextResponse.json({ error: "Not found." }, { status: 404 });
   }
 
+  // NOTE: email is intentionally NOT selected. The certificate_id acts as an
+  // unguessable capability token but is printed on the (shareable) PDF and verify
+  // URL, so anyone holding it must not be able to read the donor's email.
   const { data } = await getSupabaseAdmin()
     .from("donations")
-    .select("donor_name,email,trees,amount,certificate_id,created_at,is_gift,recipient_name,occasion,tree_name,gift_message")
+    .select("donor_name,trees,amount,certificate_id,created_at,is_gift,recipient_name,occasion,tree_name,gift_message")
     .eq("certificate_id", params.id)
     .single();
 

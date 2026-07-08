@@ -149,6 +149,7 @@ export default function AdminDashboardPage() {
                     <th className="px-4 py-3 text-left font-medium">Email</th>
                     <th className="px-4 py-3 text-right font-medium">Trees</th>
                     <th className="px-4 py-3 text-right font-medium">Amount</th>
+                    <th className="px-4 py-3 text-left font-medium">Gift</th>
                     <th className="px-4 py-3 text-left font-medium">Certificate ID</th>
                     <th className="px-4 py-3 text-left font-medium">Date</th>
                     <th className="px-4 py-3 text-center font-medium">Certificate</th>
@@ -164,6 +165,26 @@ export default function AdminDashboardPage() {
                       <td className="px-4 py-3 text-right text-gray-700">{d.trees}</td>
                       <td className="px-4 py-3 text-right text-gray-700 whitespace-nowrap">
                         ₹{d.amount.toLocaleString("en-IN")}
+                      </td>
+                      <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                        {d.is_gift ? (
+                          <span
+                            className="inline-flex flex-col"
+                            title={d.gift_message ? `Message: ${d.gift_message}` : undefined}
+                          >
+                            <span className="inline-flex items-center gap-1 text-forest-700 font-medium">
+                              <span className="inline-block w-1.5 h-1.5 rounded-full bg-forest-500" aria-hidden="true" />
+                              {d.recipient_name || "Gift"}
+                            </span>
+                            {(d.occasion || d.tree_name) && (
+                              <span className="text-xs text-gray-400">
+                                {[d.occasion, d.tree_name && `“${d.tree_name}”`].filter(Boolean).join(" · ")}
+                              </span>
+                            )}
+                          </span>
+                        ) : (
+                          <span className="text-gray-300">—</span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-gray-400 font-mono text-xs whitespace-nowrap">
                         {d.certificate_id}
